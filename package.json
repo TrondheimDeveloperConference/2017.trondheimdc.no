@@ -1,0 +1,48 @@
+{
+  "buddy": {
+    "build": [
+      {
+        "input": "css/main.css",
+        "output": "css/main.min.css",
+        "version": [
+          "last 2 versions",
+          "iOS >= 7"
+        ],
+        "options": {
+          "postcss": {
+            "plugins": [
+              "postcss-cssnext"
+            ]
+          }
+        }
+      }
+    ]
+  },
+  "devDependencies": {
+    "babel-plugin-check-es2015-constants": "6.22.0",
+    "babel-plugin-syntax-trailing-function-commas": "6.22.0",
+    "babel-plugin-transform-async-to-generator": "6.22.0",
+    "babel-plugin-transform-es2015-arrow-functions": "6.22.0",
+    "babel-plugin-transform-es2015-block-scoped-functions": "6.22.0",
+    "babel-plugin-transform-es2015-block-scoping": "6.23.0",
+    "babel-plugin-transform-es2015-classes": "6.23.0",
+    "babel-plugin-transform-es2015-computed-properties": "6.22.0",
+    "babel-plugin-transform-es2015-destructuring": "6.23.0",
+    "babel-plugin-transform-es2015-for-of": "6.23.0",
+    "babel-plugin-transform-es2015-function-name": "6.22.0",
+    "babel-plugin-transform-es2015-literals": "6.22.0",
+    "babel-plugin-transform-es2015-object-super": "6.22.0",
+    "babel-plugin-transform-es2015-parameters": "6.23.0",
+    "babel-plugin-transform-es2015-shorthand-properties": "6.22.0",
+    "babel-plugin-transform-es2015-spread": "6.22.0",
+    "babel-plugin-transform-es2015-sticky-regex": "6.22.0",
+    "babel-plugin-transform-es2015-template-literals": "6.22.0",
+    "babel-plugin-transform-es2015-typeof-symbol": "6.23.0",
+    "babel-plugin-transform-es2015-unicode-regex": "6.22.0",
+    "babel-plugin-transform-exponentiation-operator": "6.22.0",
+    "babel-plugin-transform-regenerator": "6.22.0",
+    "buddy": "^6.12.6",
+    "buddy-server": "^2.1.0",
+    "postcss-cssnext": "2.9.0"
+  }
+}
