@@ -219,7 +219,8 @@ nav svg {
 
 @media (min-width: 911px) {
 
-	nav {}
+	nav {
+}
 
 	nav svg {
 		display: inline-block;
@@ -270,7 +271,8 @@ nav svg {
 	transform-origin: center bottom;
 }
 
-.show--menu .menu_toggle {}
+.show--menu .menu_toggle {
+}
 
 .show--menu .menu_toggle::before {
 	-webkit-transform: rotate(-45deg);
@@ -346,7 +348,8 @@ nav svg {
 	background: #000;
 }
 
-.block--top {}
+.block--top {
+}
 
 .block--top h1 {
 	width: 120px;
@@ -370,7 +373,8 @@ nav svg {
 
 @media (min-width: 635px) {
 
-	.block--top {}
+	.block--top {
+}
 
 	.block--top h1 {
 		width: 23vw;
@@ -433,7 +437,8 @@ nav svg {
 
 @supports (mix-blend-mode: hue) {
 
-	.block--photos li {}
+	.block--photos li {
+}
 
 	.block--photos li::after {
 		position: absolute;
@@ -512,11 +517,13 @@ nav svg {
 	fill: #9EC41B;
 }
 
-.block--2017 {}
+.block--2017 {
+}
 
 @media (min-width: 800px) {
 
-	.block--2017 {}
+	.block--2017 {
+}
 
 	.block--2017 .ingress {
 		font-size: 1.625em;
@@ -528,7 +535,8 @@ nav svg {
 	}
 }
 
-.block--cfp {}
+.block--cfp {
+}
 
 .block--cfp .btn {
 	background: #000;
@@ -585,7 +593,8 @@ nav svg {
 	}
 }
 
-.no-touch .block--cfp .btn:hover {}
+.no-touch .block--cfp .btn:hover {
+}
 
 .no-touch .block--cfp .btn:hover::before {
 	right: 0;
@@ -622,7 +631,8 @@ nav svg {
 	}
 }
 
-.block--about {}
+.block--about {
+}
 
 .block--about li {
 	list-style: none;
@@ -642,7 +652,53 @@ nav svg {
 	height: 16px;
 }
 
+.block--meetups {
+	text-align: center;
+	text-decoration: none;
+	display: -ms-flexbox;
+	display: -webkit-flex;
+	display: -webkit-box;
+	display: flex;
+	    -webkit-box-pack: center;
+	-ms-flex-pack: center;
+	    justify-content: center;
+	-ms-flex-wrap: wrap;
+	    flex-wrap: wrap;
+}
 
+.block--meetups svg {
+	width: 100px;
+	height: 100px;
+	display: block;
+}
+
+@media (min-width: 520px) {
+
+	.block--meetups {
+}
+
+	.block--meetups svg {
+		width: 75px;
+		height: 75px;
+	}
+}
+
+#nnug-logo,
+#ixda-logo,
+#spillmakerlauget-logo,
+#javabin-logo,
+#trondheimxp-logo,
+#dataforeninge-logo,
+#bartjs-logo {
+}
+
+#nnug-logo path, #nnug-logo text, #ixda-logo path, #ixda-logo text, #spillmakerlauget-logo path, #spillmakerlauget-logo text, #javabin-logo path, #javabin-logo text, #trondheimxp-logo path, #trondheimxp-logo text, #dataforeninge-logo path, #dataforeninge-logo text, #bartjs-logo path, #bartjs-logo text {
+	fill: currentColor;
+}
+/*
+svg path,  svg text {
+	fill: currentColor !important;
+}*/
 
 
 
