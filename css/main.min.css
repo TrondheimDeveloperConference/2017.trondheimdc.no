@@ -157,7 +157,6 @@ nav {
 	-webkit-transform: translateY(100%);
 	        transform: translateY(100%);
 	transition: -webkit-transform .2s cubic-bezier(.4, 0, 1, 1);
-	-webkit-transition: -webkit-transform .2s cubic-bezier(.4, 0, 1, 1);
 	transition: transform .2s cubic-bezier(.4, 0, 1, 1);
 	transition: transform .2s cubic-bezier(.4, 0, 1, 1), -webkit-transform .2s cubic-bezier(.4, 0, 1, 1)
 }
@@ -165,8 +164,7 @@ nav {
 .show--menu nav {
 	-webkit-transform: none;
 	transform: none;
-	-webkit-transition-timing-function: cubic-bezier(0, 0, .2, 1);
-	        transition-timing-function: cubic-bezier(0, 0, .2, 1);
+	transition-timing-function: cubic-bezier(0, 0, .2, 1);
 }
 
 nav ul {
@@ -191,7 +189,6 @@ nav svg {
 		transform: none;
 		bottom: auto;
 		height: 70px;
-		-webkit-transition: padding .3s .2s cubic-bezier(.4, 0, .2, 1);
 		transition: padding .3s .2s cubic-bezier(.4, 0, .2, 1);
 		font-size: 12px;
 	}
@@ -216,8 +213,7 @@ nav svg {
 
 	.toggle--logo-in-menu nav {
 		padding-left: calc(4% + 80px);
-		-webkit-transition-delay: 0;
-		        transition-delay: 0;
+		transition-delay: 0;
 	}
 	}
 
@@ -262,7 +258,6 @@ nav svg {
 	height: 9px;
 	border-bottom: 2px solid #000;
 	transition: border .2s cubic-bezier(.4, 0, .2, 1), -webkit-transform .2s cubic-bezier(.4, 0, .2, 1);
-	-webkit-transition: border .2s cubic-bezier(.4, 0, .2, 1), -webkit-transform .2s cubic-bezier(.4, 0, .2, 1);
 	transition: transform .2s cubic-bezier(.4, 0, .2, 1), border .2s cubic-bezier(.4, 0, .2, 1);
 	transition: transform .2s cubic-bezier(.4, 0, .2, 1), border .2s cubic-bezier(.4, 0, .2, 1), -webkit-transform .2s cubic-bezier(.4, 0, .2, 1);
 	-webkit-transform-origin: center top;
@@ -317,7 +312,6 @@ nav svg {
 		right: auto;
 		width: 23vw;
 		left: 4%;
-		-webkit-transition: top .3s cubic-bezier(.4, 0, .2, 1);
 		transition: top .3s cubic-bezier(.4, 0, .2, 1);
 	}
 
@@ -333,8 +327,7 @@ nav svg {
 	width: 80px;
 	z-index: 11;
 	margin-top: 0;
-	-webkit-transition-delay: .2s;
-	        transition-delay: .2s;
+	transition-delay: .2s;
 }
 
 .toggle--logo-in-menu .logo svg {
@@ -561,7 +554,6 @@ nav svg {
 	right: calc(100% - 8px);
 	background: #fff;
 	will-change: right;
-	-webkit-transition: right .3s 1ms cubic-bezier(.4, 0, .2, 1);
 	transition: right .3s 1ms cubic-bezier(.4, 0, .2, 1);
 }
 
@@ -578,7 +570,6 @@ nav svg {
 	text-align: center;
 	will-change: clip-path;
 	opacity: 0;
-	-webkit-transition: opacity .3s cubic-bezier(.4, 0, .2, 1);
 	transition: opacity .3s cubic-bezier(.4, 0, .2, 1);
 }
 
@@ -589,7 +580,6 @@ nav svg {
 		-webkit-clip-path: polygon(0 0, 0 0, 0 100%, 0 100%);
 		clip-path: polygon(0 0, 0 0, 0 100%, 0 100%);
 		transition: -webkit-clip-path .3s cubic-bezier(.4, 0, .2, 1);
-		-webkit-transition: -webkit-clip-path .3s cubic-bezier(.4, 0, .2, 1);
 		transition: clip-path .3s cubic-bezier(.4, 0, .2, 1);
 		transition: clip-path .3s cubic-bezier(.4, 0, .2, 1), -webkit-clip-path .3s cubic-bezier(.4, 0, .2, 1);
 	}
@@ -599,8 +589,7 @@ nav svg {
 
 .no-touch .block--cfp .btn:hover::before {
 	right: 0;
-	-webkit-transition-delay: 6ms;
-	        transition-delay: 6ms;
+	transition-delay: 6ms;
 }
 
 .no-touch .block--cfp .btn:hover::after {
