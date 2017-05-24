@@ -666,6 +666,14 @@ nav svg {
 	    flex-wrap: wrap;
 }
 
+.block--meetups a {
+	transition: color 200ms;
+}
+
+.block--meetups a:hover {
+	color: rgb(240, 249, 210);
+}
+
 .block--meetups svg {
 	width: 100px;
 	height: 100px;
