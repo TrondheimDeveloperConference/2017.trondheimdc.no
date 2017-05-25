@@ -514,9 +514,51 @@ nav {
 			}
 		}
 	}
+
+	&--meetups {
+		text-align: center;
+		text-decoration: none;
+		display: flex;
+		justify-content: center;
+		flex-wrap: wrap;
+
+		& a {
+			transition: color 200ms;
+		}
+		& a:hover {
+			color: color(var(--green) lightness(90%));
+		}
+
+		& svg {
+			width: 100px;
+			height: 100px;
+			display: block;
+		}
+
+		@media (min-width: 520px) {
+			& svg {
+				width: 75px;
+				height: 75px;
+			}
+		}
+	}
 }
 
-
+#nnug-logo,
+#ixda-logo,
+#spillmakerlauget-logo,
+#javabin-logo,
+#trondheimxp-logo,
+#dataforeninge-logo,
+#bartjs-logo {
+	& path, & text {
+		fill: currentColor;
+	}
+}
+/*
+svg path,  svg text {
+	fill: currentColor !important;
+}*/
 
 
 

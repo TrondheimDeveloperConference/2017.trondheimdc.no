@@ -44,3 +44,6 @@ dwsync.xml
 logs/*
 node_modules
 *npm-debug.log
+
+
+.vscode/
