@@ -431,12 +431,12 @@ canvas {
 	background: #212121;
 	padding: 10px 10px 0;
 	margin-bottom: 20px;
-	font-size: 10px;
+	font-size: 12px;
 	line-height: 1.4em;
 }
 
 .block--speakers h5 {
-	font-size: 1.2em;
+	font-size: 1.33em;
 	margin: 1em 0 0;
 }
 
