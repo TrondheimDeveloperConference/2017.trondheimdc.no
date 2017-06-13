@@ -126,6 +126,12 @@ ul.unstyled {
 			left: var(--site-padding);
 		}
 	}
+
+	@media (min-width: 725px) {
+		padding-left: 89px;
+
+		& h2 svg { left: 25px; }
+	}
 }
 
 h2 {

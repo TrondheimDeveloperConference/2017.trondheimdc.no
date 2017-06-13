@@ -115,6 +115,16 @@ ul.unstyled {
 		left: 4%;
 	}
 	}
+@media (min-width: 725px) {
+
+	.text-content {
+		padding-left: 89px;
+	}
+
+	.text-content h2 svg {
+		left: 25px;
+	}
+	}
 
 h2 {
 	color: #fff;
