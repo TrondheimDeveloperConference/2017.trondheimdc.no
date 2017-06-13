@@ -111,16 +111,10 @@ ul.unstyled {
 
 	.text-content h2 svg {
 		position: absolute;
-		top: -.2em;
+		top: .2em;
 		left: 4%;
 	}
 	}
-@media (min-width: 520px) and (min-width: 600px) {
-
-	.text-content h2 svg {
-		top: -.1em;
-	}
-}
 
 h2 {
 	color: #fff;
@@ -133,8 +127,9 @@ h2 svg {
 	width: 47px;
 	height: 34px;
 	display: inline-block;
-	vertical-align: sub;
+	vertical-align: middle;
 	margin-right: .3em;
+	margin-top: -16px;
 }
 
 .green h2 svg {
