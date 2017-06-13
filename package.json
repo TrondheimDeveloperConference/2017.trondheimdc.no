@@ -1,5 +1,8 @@
 {
   "buddy": {
+    "server": {
+      "port": "3000"
+    },
     "build": [
       {
         "input": "css/main.css",
