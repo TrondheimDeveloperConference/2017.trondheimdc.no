@@ -425,9 +425,9 @@ canvas {
 	    -webkit-box-direction: normal;
 	-ms-flex-flow: row wrap;
 	    flex-flow: row wrap;
-	    -webkit-box-pack: justify;
-	-ms-flex-pack: justify;
-	    justify-content: space-between;
+	    -webkit-box-pack: center;
+	-ms-flex-pack: center;
+	    justify-content: center;
 	padding: 0 2%;
 }
 
@@ -435,7 +435,7 @@ canvas {
 	width: 200px;
 	background: #212121;
 	padding: 10px 10px 0;
-	margin-bottom: 20px;
+	margin: 10px;
 	font-size: 12px;
 	line-height: 1.4em;
 }
