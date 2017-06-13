@@ -519,6 +519,21 @@ canvas {
 		}
 	}
 
+	&--conduct {
+		& .extra {
+			max-height: 0;
+			overflow: hidden;
+			transition: max-height .3s var(--ease);
+		}
+
+		& .icon::before { content: '+'; }
+
+		&.open {
+			& .extra { max-height: 1050px; }
+			& .icon::before { content: '-'; }
+		}
+	}
+
 	& .btn {
 			background: #000;
 			color: var(--green);

@@ -657,6 +657,31 @@ canvas {
 	}
 }
 
+.block--conduct {
+}
+
+.block--conduct .extra {
+	max-height: 0;
+	overflow: hidden;
+	-webkit-transition: max-height .3s cubic-bezier(.4, 0, .2, 1);
+	transition: max-height .3s cubic-bezier(.4, 0, .2, 1);
+}
+
+.block--conduct .icon::before {
+	content: '+';
+}
+
+.block--conduct.open {
+}
+
+.block--conduct.open .extra {
+	max-height: 1050px;
+}
+
+.block--conduct.open .icon::before {
+	content: '-';
+}
+
 .block .btn {
 	background: #000;
 	color: #9EC41B;
