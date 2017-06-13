@@ -133,6 +133,7 @@ ul.unstyled {
 h2 {
 	color: #fff;
 	text-transform: uppercase;
+	font-size: 1.875em;
 
 	& svg {
 		fill: var(--green);
@@ -151,6 +152,8 @@ h2 {
 h4 {
 	text-transform: uppercase;
 	margin-bottom: -.8em;
+	font-weight: bold;
+	font-size: 1.25em;
 }
 
 nav {
@@ -380,6 +383,8 @@ canvas {
 			font-size: 1.2em;
 			margin: 1em 0 0;
 		}
+
+		& img { width: 100%; }
 	}
 
 	&--photos {
@@ -409,7 +414,10 @@ canvas {
 					content: '';
 					background: var(--green);
 					mix-blend-mode: hue;
+					transition: opacity .5s ease;
 				}
+
+				@nest .no-touch &:hover::after { opacity: 0; }
 			}
 
 			&:nth-child(3n-2) { grid-row: 1/3; }

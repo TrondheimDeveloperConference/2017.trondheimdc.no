@@ -67,6 +67,7 @@ var _ajax = function(url, callback) {
 		console.error('error', err);
 	};
 
+	request.setRequestHeader('Access-Control-Allow-Origin', '*');
 	request.send();
 };
 
@@ -175,6 +176,34 @@ var loadJSONP = (function(){
 	if (location.hash.length > 2) {
 		_si('nav a[href*="' + location.hash + '"]').click();
 	}
+
+	/* real ajax
+	_ajax('https://api.trondheimdc.no/events/tdc2017/sessions', function(data) {
+		console.log(data);
+	});*/
+	//fake ajax
+	function loadSpeakers() {
+		var data = [{"tittel":"Getting started with Java 9 modules","format":"presentation","starter":null,"stopper":null,"foredragsholdere":[{"navn":"Rafael Winterhalter","bildeUri":"https://secure.gravatar.com/avatar/bc96521f79789d75fa63cfa5c2758765"}],"sprak":"en","niva":"beginner","links":[{"rel":"detaljer","href":"https://api.trondheimdc.no/events/tdc2017/sessions/1244e93a57721890bd26a3a5f431064fb82f9d630da04b1fa077c0aeeaf47908"},{"rel":"feedback","href":"https://api.trondheimdc.no/devnull/server/events/1f876502-d3c3-44f6-8ea3-a4d0e16331dd/sessions/46f0e0fa-d811-44d1-9509-b5eebd46e02d/feedbacks"}],"rom":null,"nokkelord":["Java 9","topic:Backend","type:"]},{"tittel":"In a Nutshell: Immutable Objects in Java","format":"presentation","starter":null,"stopper":null,"foredragsholdere":[{"navn":"Marcus Biel","bildeUri":"https://secure.gravatar.com/avatar/5fada8ab2d8d053004959c1a3dc68a31"}],"sprak":"en","niva":"intermediate","links":[{"rel":"detaljer","href":"https://api.trondheimdc.no/events/tdc2017/sessions/9c220848089a278bc21682629bfac8545d90d47723616a6c70d491a5681e073c"},{"rel":"feedback","href":"https://api.trondheimdc.no/devnull/server/events/1f876502-d3c3-44f6-8ea3-a4d0e16331dd/sessions/0c1835aa-ee0c-431a-8b99-76279f2d0763/feedbacks"}],"rom":null,"nokkelord":["Paradigms","topic:Concepts / Theory","type:"]}];
+
+		var tmpl = '<li>'+
+						'<img src="{img}">'+
+						'<h5>{name}</h5>'+
+						'<p>{title}</p>'+
+					'</li>';
+		var fallbackImg = '//placehold.it/360x240/117fe8/fff';
+		var listHtml = '';
+		data.forEach(function(sessh) {
+			console.log(sessh);
+			var img = sessh.foredragsholdere[0].bildeUri || fallbackImg;
+			var name = sessh.foredragsholdere[0].navn;
+			var title = sessh.tittel;
+			listHtml += tmpl.replace('{img}', img).replace('{name}', name).replace('{title}', title);
+			console.log(listHtml);
+		});
+
+		_si('.block--speakers ul').innerHTML = listHtml;
+	}
+	loadSpeakers();
 
 	loadJSONP('https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=00622ccfe6e4d518ca49b0b5105abb54&per_page=20&user_id=trondheimdc&tags=Approved&page=2&extras=o_dims&format=json');
 
@@ -348,6 +377,6 @@ function jsonFlickrApi(data) {
 	} else {
 		firstPhotoWallLoaded = true;
 		_s('.block--photos ul')[0].innerHTML = html;
-		loadJSONP('https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=00622ccfe6e4d518ca49b0b5105abb54&per_page=20&user_id=trondheimdc&tags=developer&page=2&extras=o_dims&format=json');
+		//loadJSONP('https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=00622ccfe6e4d518ca49b0b5105abb54&per_page=20&user_id=trondheimdc&tags=developer&page=2&extras=o_dims&format=json');
 	}
 }
