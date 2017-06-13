@@ -497,18 +497,12 @@ canvas {
 	}
 
 	&--meetups {
-		text-align: center;
-		text-decoration: none;
 		display: flex;
-		justify-content: center;
+		justify-content: space-between;
 		flex-wrap: wrap;
 
-		& a {
-			transition: color 200ms;
-		}
-		& a:hover {
-			color: color(var(--green) lightness(90%));
-		}
+		& a { transition: color 200ms; }
+		& a:hover { color: color(var(--green) lightness(90%)); }
 
 		& svg {
 			width: 100px;
@@ -518,8 +512,8 @@ canvas {
 
 		@media (min-width: 520px) {
 			& svg {
-				width: 75px;
-				height: 75px;
+				width: 55px;
+				height: 55px;
 			}
 		}
 	}
