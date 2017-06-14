@@ -394,8 +394,20 @@
 		<script src="js/vendor/vec4.js"></script>
 		<script src="//cdnjs.cloudflare.com/ajax/libs/dom4/1.8.3/dom4.js"></script>
 		<script src="js/vendor/lazysizes.min.js"></script>
-		<script src="js/main.js"></script>
-
+		<script src="js/main.min.js"></script>
+		<script>
+			function jsonFlickrApi(data) {
+				var html = '';
+				counter = 0;
+				data.photos.photo.forEach(function(photo) {
+					if (counter > 8 || photo.o_height - 0 > photo.o_width - 0) { return; }
+					var url = 'https://farm' + photo.farm + '.staticflickr.com/' + photo.server + '/' + photo.id + '_' + photo.secret + '_c.jpg';
+					html += '<li><img src="data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20viewBox%3D%270%200%20400%20267%27%2F%3E" data-src="' + url + '" class="lazyload"></li>';
+					counter++;
+				});
+				document.querySelector('.block--photos ul').innerHTML = html;
+			}
+		</script>
 
 		<!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
 		<script>
