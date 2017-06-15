@@ -460,7 +460,10 @@ canvas {
 }
 
 .block--speakers img {
-	width: 100%;
+	width: 180px;
+	height: 180px;
+	-o-object-fit: cover;
+	   object-fit: cover;
 }
 
 .block--photos {
