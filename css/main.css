@@ -68,8 +68,8 @@ textarea { resize: vertical; }
 
 body {
 	color: #000;
-	background: #000 url('../img/img_fallback_400.jpg') no-repeat;
-	background-size: cover;
+	background: #000 url('../img/img_fallback_400.jpg');
+	background-size: 100% auto;
 	background-attachment: fixed;
 	font-size: 14px;
 	line-height: 1.5em;
