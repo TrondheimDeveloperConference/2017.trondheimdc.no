@@ -68,7 +68,7 @@ textarea { resize: vertical; }
 
 body {
 	color: #000;
-	background: #000 url('../img/img_fallback_400.jpg');
+	background: #000 url('../img/img_fallback_400_repeating.jpg');
 	background-size: 100% auto;
 	background-attachment: fixed;
 	font-size: 14px;
@@ -512,8 +512,12 @@ canvas {
 		justify-content: space-between;
 		flex-wrap: wrap;
 
-		& a { transition: color 200ms; }
-		& a:hover { color: color(var(--green) lightness(90%)); }
+		& a {
+			transition: color 200ms;
+			margin: 1rem 5px;
+
+			&:hover { color: color(var(--green) lightness(90%)); }
+		}
 
 		& svg {
 			width: 100px;
