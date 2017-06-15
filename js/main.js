@@ -111,7 +111,9 @@ var loadJSONP = (function(){
 		},
 		window_width = window.innerWidth,
 		logo = _si('.logo'),
-		logoTop = logo.getBoundingClientRect().top + scrollTop;
+		logoTop = logo.getBoundingClientRect().top + scrollTop,
+		lowFpsCount = 0,
+		startup = Date.now();
 
 	function render() {
 		if (scrollTop !== oldScrollTop) {
@@ -207,8 +209,7 @@ var loadJSONP = (function(){
 		this.element = element;
 		this.handler = this.handler.bind(this);
 		this.L = this.M = this.R = this.X = this.Y = 0;
-		element.addEventListener('contextmenu', this.handler);
-		element.addEventListener('mousedown', this.handler);
+		window.addEventListener('mousedown', this.handler);
 		window.addEventListener('mouseup', this.handler);
 		window.addEventListener('mousemove', this.handler);
 	}
@@ -332,8 +333,19 @@ var loadJSONP = (function(){
 	};
 
 	Field.prototype.update = function() {
-		this.info.textContent = util.fps(true);
 		this.now = Date.now();
+		if (this.now - startup < 10) {
+			let fps = util.fps(true);
+			if (fps < 20) {
+				lowFpsCount++;
+				if (lowFpsCount > 100) {
+					document.body.removeChild(_si('canvas'));
+					return;
+				}
+			} else {
+				lowFpsCount = 0;
+			}
+		}
 		this.resize();
 		this.spawn();
 		this.render();
@@ -345,7 +357,9 @@ var loadJSONP = (function(){
 	};
 
 	window.addEventListener('load', function () {
-		new Field(document.body);
+		if (window_width > 600) {
+			new Field(document.body);
+		}
 	}, false);
 
 	html.classList.remove('no-js');
