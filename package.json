@@ -1,6 +1,17 @@
 {
   "buddy": {
+    "server": {
+      "port": "3000"
+    },
     "build": [
+      {
+        "input": "js/main.js",
+        "output": "js/main.min.js",
+        "version": [
+          "last 2 versions",
+          "iOS >= 7"
+        ]
+      },
       {
         "input": "css/main.css",
         "output": "css/main.min.css",
