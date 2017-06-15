@@ -333,25 +333,26 @@ var loadJSONP = (function(){
 	};
 
 	Field.prototype.update = function() {
-		this.now = Date.now();
-		if (this.now - startup < 10) {
-			let fps = util.fps(true);
-			if (fps < 20) {
-				lowFpsCount++;
-				if (lowFpsCount > 100) {
-					document.body.removeChild(_si('canvas'));
-					return;
-				}
-			} else {
-				lowFpsCount = 0;
-			}
-		}
 		this.resize();
 		this.spawn();
 		this.render();
 	};
 
 	Field.prototype.loop = function() {
+		this.now = Date.now();
+		if (this.now - startup < 5000) {
+			let fps = util.fps(true);
+			if (fps < 20) {
+				lowFpsCount++;
+				if (lowFpsCount > 60) {
+					document.body.removeChild(_si('canvas'));
+					html.classList.add('lowfps');
+					return;
+				}
+			} else {
+				lowFpsCount = 0;
+			}
+		}
 		requestAnimationFrame(this.loop);
 		this.update();
 	};

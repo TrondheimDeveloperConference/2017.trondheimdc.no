@@ -68,13 +68,24 @@ textarea { resize: vertical; }
 
 body {
 	color: #000;
-	background: #000;
+	background: #000 url('../img/img_fallback_400.jpg') no-repeat;
+	background-size: 100% auto;
+	background-attachment: fixed;
 	font-size: 14px;
 	line-height: 1.4em;
 	font-family: 'Source Sans Pro', sans-serif;
 	font-weight: 300;
 
-	@media (--bigger-font) { font-size: 16px; }
+	@media (--bigger-font) {
+		font-size: 16px;
+		background-image: none;
+
+		@nest .lowfps & {
+			background-image: url('../img/img_fallback_1600.jpg');
+			background-size: auto 100%;
+		}
+	}
+
 	@media (--show-menu) { padding-top: var(--menu-height); }
 }
 
