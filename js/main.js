@@ -305,14 +305,6 @@ var loadJSONP = (function(){
 			"tittel": "",
 			"foredragsholdere": [
 			{
-				"navn": "Bjørn Borud",
-				"bildeUri": "https://static.trondheimdc.no/2017/Bjorn_Borud.jpg"
-			}
-			]
-		}, {
-			"tittel": "",
-			"foredragsholdere": [
-			{
 				"navn": "Berit Alvestrand",
 				"bildeUri": "https://static.trondheimdc.no/2017/Berit_Alvestrand.jpg"
 			}
@@ -323,14 +315,6 @@ var loadJSONP = (function(){
 			{
 				"navn": "Jonas Follesø",
 				"bildeUri": "https://static.trondheimdc.no/2017/Jonas_Folleso.jpg"
-			}
-			]
-		}, {
-			"tittel": "",
-			"foredragsholdere": [
-			{
-				"navn": "Øystein Askeland",
-				"bildeUri": "https://static.trondheimdc.no/2017/oystein_Askeland.jpg"
 			}
 			]
 		}, {
