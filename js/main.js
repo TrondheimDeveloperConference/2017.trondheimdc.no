@@ -197,8 +197,10 @@ var loadJSONP = (function(){
 			var title = sessh.tittel;
 			listHtml += `<li>
 							<img src="${img}">
-							<h5>${name}</h5>
-							<p>${title}</p>
+							<div>
+								<h5>${name}</h5>
+								<p>${title}</p>
+							</div>
 						</li>`;
 		});
 
