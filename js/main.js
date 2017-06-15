@@ -295,7 +295,7 @@ var loadJSONP = (function(){
 	}
 
 	Field.prototype.spawn = function() {
-		for(var i = 1e4 - this.particles.length; i--;)
+		for(var i = Math.round(1e4 / 1.5) - this.particles.length; i--;)
 			this.particles.push(new Particle(this));
 	};
 
