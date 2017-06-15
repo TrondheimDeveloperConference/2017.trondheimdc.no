@@ -345,8 +345,10 @@ var loadJSONP = (function(){
 			if (fps < 20) {
 				lowFpsCount++;
 				if (lowFpsCount > 60) {
-					document.body.removeChild(_si('canvas'));
 					html.classList.add('lowfps');
+					setTimeout(function() {
+						document.body.removeChild(_si('canvas'));
+					}, 500);
 					return;
 				}
 			} else {

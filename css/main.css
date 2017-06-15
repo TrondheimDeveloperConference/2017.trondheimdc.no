@@ -69,7 +69,7 @@ textarea { resize: vertical; }
 body {
 	color: #000;
 	background: #000 url('../img/img_fallback_400.jpg') no-repeat;
-	background-size: 100% auto;
+	background-size: cover;
 	background-attachment: fixed;
 	font-size: 14px;
 	line-height: 1.4em;
@@ -80,10 +80,7 @@ body {
 		font-size: 16px;
 		background-image: none;
 
-		@nest .lowfps & {
-			background-image: url('../img/img_fallback_1600.jpg');
-			background-size: auto 100%;
-		}
+		@nest .lowfps & { background-image: url('../img/img_fallback_1600.jpg'); }
 	}
 
 	@media (--show-menu) { padding-top: var(--menu-height); }
@@ -335,6 +332,9 @@ canvas {
 	height: 100%;
 	z-index: -2;
 	opacity: .5;
+	transition: opacity .5s var(--ease);
+
+	@nest .lowfps & { opacity: 0; }
 }
 
 .block {
