@@ -72,7 +72,7 @@ body {
 	background-size: cover;
 	background-attachment: fixed;
 	font-size: 14px;
-	line-height: 1.4em;
+	line-height: 1.5em;
 	font-family: 'Source Sans Pro', sans-serif;
 	font-weight: 300;
 
@@ -392,7 +392,7 @@ canvas {
 			padding: 10px 10px 0;
 			margin: 10px;
 			font-size: 12px;
-			line-height: 1.4em;
+			line-height: 1.5em;
 		}
 
 		& h5 {
