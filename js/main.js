@@ -214,7 +214,7 @@ var loadJSONP = (function(){
 			"foredragsholdere": [
 			{
 				"navn": "Sander Hoogendoorn",
-				"bildeUri": "https://static.trondheimdc.no/2017/Sander-Hoogendoorn.jpg"
+				"bildeUri": "https://api.trondheimdc.no/speakers/e9eb9e151cb82630194e9b13ebe779dd242ad42b35e774580baa3975ffd2677d/image?size=240"
 			}
 			]
 		},
