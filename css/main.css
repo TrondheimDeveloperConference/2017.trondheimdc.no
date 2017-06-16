@@ -576,7 +576,7 @@ canvas {
 		& .icon::before { content: '+'; }
 
 		&.open {
-			& .extra { max-height: 1050px; }
+			& .extra { max-height: 1100px; }
 			& .icon::before { content: '-'; }
 		}
 	}
