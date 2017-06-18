@@ -199,7 +199,6 @@ var loadJSONP = (function(){
 							<img src="${img}">
 							<div>
 								<h5>${name}</h5>
-								<p>${title}</p>
 							</div>
 						</li>`;
 		});
