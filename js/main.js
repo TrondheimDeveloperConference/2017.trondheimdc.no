@@ -280,14 +280,6 @@ var loadJSONP = (function(){
 			"tittel": "",
 			"foredragsholdere": [
 			{
-				"navn": "Jo-Remi Madsen",
-				"bildeUri": "https://static.trondheimdc.no/2017/Jo-Remi_Madsen.jpg"
-			}
-			]
-		}, {
-			"tittel": "",
-			"foredragsholdere": [
-			{
 				"navn": "Eirik Backer",
 				"bildeUri": "https://static.trondheimdc.no/2017/Eirik_Backer.jpg"
 			}
