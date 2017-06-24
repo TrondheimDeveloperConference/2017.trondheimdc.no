@@ -1,4 +1,8 @@
-var scrollHelper = {
+import SimplexNoise from 'simplex-noise';
+import vec4 from './vendor/vec4';
+import util from './vendor/util';
+
+const scrollHelper = {
 	easeInOut: function(currentTime, start, change, duration) {
 		currentTime /= duration / 2;
 		if (currentTime < 1) {
@@ -9,7 +13,7 @@ var scrollHelper = {
 	},
 
 	scrollTo: function(to, duration) {
-		var start = window.pageYOffset,
+		const start = window.pageYOffset,
 			change = to - start,
 			increment = 20;
 
@@ -18,9 +22,9 @@ var scrollHelper = {
 			return;
 		}
 
-		var animateScroll = function(elapsedTime) {
+		const animateScroll = function(elapsedTime) {
 			elapsedTime += increment;
-			var position = scrollHelper.easeInOut(elapsedTime, start, change, duration);
+			const position = scrollHelper.easeInOut(elapsedTime, start, change, duration);
 			window.scrollTo(0, position);
 			if (elapsedTime < duration) {
 				requestAnimationFrame(function() {
@@ -33,24 +37,24 @@ var scrollHelper = {
 	}
 };
 
-var _s = function(selector, context) {
-	var d = context || document;
+const _s = function(selector, context) {
+	const d = context || document;
 	return Array.apply(null, d.querySelectorAll(selector));
 };
 
-var _si = function(selector, context, returnNull) {
-	var d = context || document;
-	var tmp = d.querySelector(selector);
+const _si = function(selector, context, returnNull) {
+	const d = context || document;
+	const tmp = d.querySelector(selector);
 	return tmp ? tmp : returnNull ? null : document.createElement('div');
 };
 
-var _ael = function(selector, ev, callback) {
-	var elm = typeof selector === 'string' ? _si(selector) : selector;
+const _ael = function(selector, ev, callback) {
+	const elm = typeof selector === 'string' ? _si(selector) : selector;
 	elm.addEventListener(ev, callback);
 };
 
-var _ajax = function(url, callback) {
-	var request = new XMLHttpRequest();
+const _ajax = function(url, callback) {
+	const request = new XMLHttpRequest();
 	request.open('GET', url, true);
 
 	request.onload = function() {
@@ -70,16 +74,16 @@ var _ajax = function(url, callback) {
 	request.send();
 };
 
-var loadJSONP = (function(){
-	var unique = 0;
+const loadJSONP = (function(){
+	let unique = 0;
 	return function(url, callback, context) {
 		// INIT
-		var name = "_jsonp_" + unique++;
+		const name = "_jsonp_" + unique++;
 		if (url.match(/\?/)) url += "&callback="+name;
 		else url += "?callback="+name;
 
 		// Create script
-		var script = document.createElement('script');
+		let script = document.createElement('script');
 		script.type = 'text/javascript';
 		script.src = url;
 
@@ -98,10 +102,10 @@ var loadJSONP = (function(){
 
 (function() {
 	'use strict';
-
-	var html = _si('html'),
-		scrollTop = window.pageYOffset,
-		oldScrollTop = 0,
+    let oldScrollTop = 0;
+    let scrollTop = window.pageYOffset;
+    let lowFpsCount = 0;
+    const html = _si('html'),
 		sections = _s('[data-link-url]'),
 		sectionTops = [],
 		phoneMenu = window.innerWidth < 635,
@@ -112,7 +116,6 @@ var loadJSONP = (function(){
 		window_width = window.innerWidth,
 		logo = _si('.logo'),
 		logoTop = logo.getBoundingClientRect().top + scrollTop,
-		lowFpsCount = 0,
 		startup = Date.now();
 
 	function render() {
@@ -128,10 +131,11 @@ var loadJSONP = (function(){
 				html.classList.remove('toggle--logo-in-menu');
 			}
 
-			for (let i = sectionTops.length; i--;) {
+            let lis = _s('nav li');
+            for (let i = sectionTops.length; i--;) {
 				if (scrollTop > sectionTops[i]) {
-					let li = _s('nav li')[i];
-					if (!li.classList.contains('active')) {
+                    let li = lis[i];
+					if (li && !li.classList.contains('active')) {
 						_si('nav li.active').classList.remove('active');
 						li.classList.add('active');
 						let url = _si('a', li).href;
@@ -189,12 +193,12 @@ var loadJSONP = (function(){
 	});
 	/* */
 	function loadSpeakers(speakers) {
-		var fallbackImg = '//placehold.it/360x240/117fe8/fff';
-		var listHtml = '';
+		const fallbackImg = '//placehold.it/360x240/117fe8/fff';
+		let listHtml = '';
 		speakers.forEach(sessh => {
-			var img = sessh.foredragsholdere[0].bildeUri || fallbackImg;
-			var name = sessh.foredragsholdere[0].navn;
-			var title = sessh.tittel;
+			const img = sessh.foredragsholdere[0].bildeUri || fallbackImg;
+			const name = sessh.foredragsholdere[0].navn;
+			const title = sessh.tittel;
 			listHtml += `<li>
 							<img src="${img}">
 							<div>
@@ -366,7 +370,7 @@ var loadJSONP = (function(){
 	Mouse.prototype.map = { 0: 'L', 1: 'M', 2: 'R' };
 
 	Mouse.prototype.handler = function(e) {
-		var b = this.element.getBoundingClientRect();
+		const b = this.element.getBoundingClientRect();
 		this.X = e.clientX - b.left;
 		this.Y = e.clientY - b.top;
 		switch(e.type) {
@@ -406,11 +410,11 @@ var loadJSONP = (function(){
 	Particle.prototype.update = function() {
 		if(this.outOfBounds()) return;
 
-		var x = 0.00550 * this.p[0];
-		var y = 0.00550 * this.p[1];
-		var z = 0.0001 * this.field.now;
-		var r = Math.random() * 0.5;
-		var t = Math.random() * Math.PI * 2;
+		const x = 0.00550 * this.p[0];
+		const y = 0.00550 * this.p[1];
+		const z = 0.0001 * this.field.now;
+		const r = Math.random() * 0.5;
+		const t = Math.random() * Math.PI * 2;
 
 		vec4.set(vec4.buffer,
 			r * Math.sin(t) + this.field.simplex.noise3D(x, y, +z),
@@ -444,13 +448,13 @@ var loadJSONP = (function(){
 	}
 
 	Field.prototype.spawn = function() {
-		for(var i = Math.round(1e4 / 1.5) - this.particles.length; i--;)
+		for(let i = Math.round(1e4 / 1.5) - this.particles.length; i--;)
 			this.particles.push(new Particle(this));
 	};
 
 	Field.prototype.resize = function() {
-		var w = this.canvas.clientWidth;
-		var h = this.canvas.clientHeight;
+		const w = this.canvas.clientWidth;
+		const h = this.canvas.clientHeight;
 		if(this.canvas.width  !== w
 		|| this.canvas.height !== h) {
 			this.width  = this.canvas.width  = w;
@@ -467,7 +471,7 @@ var loadJSONP = (function(){
 	Field.prototype.render = function() {
 		this.context.beginPath();
 
-		for(var p, i = 0; p = this.particles[i++];) if(p.update()) {
+		for(let p, i = 0; p = this.particles[i++];) if(p.update()) {
 			this.context.moveTo(p.l[0], p.l[1]);
 			this.context.lineTo(p.p[0], p.p[1]);
 		} else p.reset(); // this.particles.splice(--i, 1);
