@@ -248,7 +248,7 @@ const loadJSONP = (function(){
     ];
 
 	_ajax('https://api.trondheimdc.no/events/tdc2017/sessions', function(data) {
-		loadSpeakers(JSON.parse(data.responseText).push(fakeSpeakers));
+		loadSpeakers(JSON.parse(data.responseText).concat(fakeSpeakers));
 	});
 
 	function loadSpeakers(speakers) {
