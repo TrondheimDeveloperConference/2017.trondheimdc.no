@@ -251,6 +251,11 @@ const loadJSONP = (function(){
 		loadSpeakers(JSON.parse(data.responseText).concat(fakeSpeakers));
 	});
 
+	function addSizeParam(imageUrl) {
+		const param = imageUrl.includes('gravatar') ? '?s=180' : '?size=240';
+		return `${imageUrl}${param}`.replace('http:', 'https:');
+	}
+
 	function loadSpeakers(speakers) {
 		const fallbackImg = '//placehold.it/360x240/117fe8/fff';
 		let listHtml = '';
@@ -259,7 +264,7 @@ const loadJSONP = (function(){
 			const name = sessh.foredragsholdere[0].navn;
 			const title = sessh.tittel;
 			listHtml += `<li>
-							<img src="${img}">
+							<img src="${addSizeParam(img)}">
 							<div>
 								<h5>${name}</h5>
 							</div>
