@@ -187,11 +187,70 @@ const loadJSONP = (function(){
 		this.closest('.block').classList.toggle('open');
 	});
 
-	/* ekte ajax *
+	const fakeSpeakers = [
+        {
+            "tittel": "",
+            "foredragsholdere": [
+                {
+                    "navn": "Martha Eike",
+                    "bildeUri": "https://static.trondheimdc.no/uploads/2015/09/Martha_Eike-Portrett.jpg"
+                }
+            ]
+        }, {
+            "tittel": "",
+            "foredragsholdere": [
+                {
+                    "navn": "Tarjei Vassbotn Sigve Tjora",
+                    "bildeUri": "https://static.trondheimdc.no/2017/tarjei-vassbotn.jpg"
+                }
+            ]
+        }, {
+            "tittel": "",
+            "foredragsholdere": [
+                {
+                    "navn": "Brian Christian",
+                    "bildeUri": "https://static.trondheimdc.no/2017/brian-christian.jpg"
+                }
+            ]
+        }, {
+            "tittel": "",
+            "foredragsholdere": [
+                {
+                    "navn": "Preethi Kasireddy",
+                    "bildeUri": "https://static.trondheimdc.no/2017/Preethi_Kasireddy.jpg"
+                }
+            ]
+        }, {
+            "tittel": "",
+            "foredragsholdere": [
+                {
+                    "navn": "Jonas Follesø",
+                    "bildeUri": "https://static.trondheimdc.no/2017/Jonas_Folleso.jpg"
+                }
+            ]
+        }, {
+            "tittel": "",
+            "foredragsholdere": [
+                {
+                    "navn": "Erik Engheim",
+                    "bildeUri": "https://static.trondheimdc.no/2017/Erik_Engheim.jpg"
+                }
+            ]
+        }, {
+            "tittel": "",
+            "foredragsholdere": [
+                {
+                    "navn": "Robert Virding",
+                    "bildeUri": "https://static.trondheimdc.no/2017/Robert_Virding.jpg"
+                }
+            ]
+        }
+    ];
+
 	_ajax('https://api.trondheimdc.no/events/tdc2017/sessions', function() {
-		loadSpeakers(JSON.parse(data.responseText));
+		loadSpeakers(JSON.parse(data.responseText).push(fakeSpeakers));
 	});
-	/* */
+
 	function loadSpeakers(speakers) {
 		const fallbackImg = '//placehold.it/360x240/117fe8/fff';
 		let listHtml = '';
@@ -209,151 +268,6 @@ const loadJSONP = (function(){
 
 		_si('.block--speakers ul').innerHTML = listHtml;
 	}
-
-	/* fake ajax */
-	loadSpeakers([
-		{
-			"tittel": "Do or don't. There's no try. Or is there? The power of monads explained. Sort of",
-			"foredragsholdere": [
-			{
-				"navn": "Sander Hoogendoorn",
-				"bildeUri": "https://api.trondheimdc.no/speakers/e9eb9e151cb82630194e9b13ebe779dd242ad42b35e774580baa3975ffd2677d/image?size=240"
-			}
-			]
-		},
-		{
-			"tittel": "Getting started with Java 9 modules",
-			"foredragsholdere": [
-			{
-				"navn": "Rafael Winterhalter",
-				"bildeUri": "https://secure.gravatar.com/avatar/bc96521f79789d75fa63cfa5c2758765?s=180"
-			}
-			]
-			},
-		{
-			"tittel": "Continuously delivering continuous delivery",
-			"foredragsholdere": [
-			{
-				"navn": "Kim van Wilgen",
-				"bildeUri": "https://secure.gravatar.com/avatar/32f9be308b887028f42c6baa4235fc5c?s=180"
-			}
-			]
-		},
-		{
-			"tittel": "In a Nutshell: Immutable Objects in Java",
-			"foredragsholdere": [
-			{
-				"navn": "Marcus Biel",
-				"bildeUri": "https://static.trondheimdc.no/2017/Marcus_Biel.png"
-			}
-			]
-		},
-		{
-			"tittel": "",
-			"foredragsholdere": [
-			{
-				"navn": "Martha Eike",
-				"bildeUri": "https://static.trondheimdc.no/uploads/2015/09/Martha_Eike-Portrett.jpg"
-			}
-			]
-		}, {
-			"tittel": "",
-			"foredragsholdere": [
-			{
-				"navn": "Tarjei Vassbotn Sigve Tjora",
-				"bildeUri": "https://static.trondheimdc.no/2017/tarjei-vassbotn.jpg"
-			}
-			]
-		}, {
-			"tittel": "",
-			"foredragsholdere": [
-			{
-				"navn": "Brian Christian",
-				"bildeUri": "https://static.trondheimdc.no/2017/brian-christian.jpg"
-			}
-			]
-		}, {
-			"tittel": "",
-			"foredragsholdere": [
-			{
-				"navn": "Preethi Kasireddy",
-				"bildeUri": "https://static.trondheimdc.no/2017/Preethi_Kasireddy.jpg"
-			}
-			]
-		}, {
-			"tittel": "",
-			"foredragsholdere": [
-			{
-				"navn": "Eirik Backer",
-				"bildeUri": "https://static.trondheimdc.no/2017/Eirik_Backer.jpg"
-			}
-			]
-		}, {
-			"tittel": "",
-			"foredragsholdere": [
-			{
-				"navn": "Axel Tideman",
-				"bildeUri": "https://static.trondheimdc.no/2017/Axel_Tideman.jpg"
-			}
-			]
-		}, {
-			"tittel": "",
-			"foredragsholdere": [
-			{
-				"navn": "Berit Alvestrand",
-				"bildeUri": "https://static.trondheimdc.no/2017/Berit_Alvestrand.jpg"
-			}
-			]
-		}, {
-			"tittel": "",
-			"foredragsholdere": [
-			{
-				"navn": "Jonas Follesø",
-				"bildeUri": "https://static.trondheimdc.no/2017/Jonas_Folleso.jpg"
-			}
-			]
-		}, {
-			"tittel": "",
-			"foredragsholdere": [
-			{
-				"navn": "Erik Engheim",
-				"bildeUri": "https://static.trondheimdc.no/2017/Erik_Engheim.jpg"
-			}
-			]
-		}, {
-			"tittel": "",
-			"foredragsholdere": [
-			{
-				"navn": "Robert Engels",
-				"bildeUri": "https://static.trondheimdc.no/2017/Robert_Engels.jpg"
-			}
-			]
-		}, {
-			"tittel": "",
-			"foredragsholdere": [
-			{
-				"navn": "Robert Virding",
-				"bildeUri": "https://static.trondheimdc.no/2017/Robert_Virding.jpg"
-			}
-			]
-		}, {
-			"tittel": "",
-			"foredragsholdere": [
-			{
-				"navn": "Francis Paulin",
-				"bildeUri": "https://static.trondheimdc.no/2017/Francis_Paulin.jpg"
-			}
-			]
-		}, {
-		"tittel": "",
-		"foredragsholdere": [
-			{
-			"navn": "Mozhgan Tavakolifard",
-			"bildeUri": "https://static.trondheimdc.no/2017/Mozhgan_Tavakolifard.jpg"
-			}
-		]
-		} 
-		]);
 
 	loadJSONP('https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=00622ccfe6e4d518ca49b0b5105abb54&per_page=20&user_id=trondheimdc&tags=Approved&page=2&extras=o_dims&format=json');
 
