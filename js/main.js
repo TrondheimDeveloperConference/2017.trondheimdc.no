@@ -1,6 +1,7 @@
 import SimplexNoise from 'simplex-noise';
 import vec4 from './vendor/vec4';
 import util from './vendor/util';
+import lazysizes from 'lazysizes';
 
 const scrollHelper = {
     easeInOut: function(currentTime, start, change, duration) {
