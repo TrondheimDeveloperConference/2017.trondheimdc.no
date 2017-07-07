@@ -255,7 +255,7 @@ const loadJSONP = (function(){
     });
 
     function addSizeParam(imageUrl) {
-        const param = imageUrl.includes('gravatar') ? '?s=180' : '?size=240';
+        const param = imageUrl.includes('gravatar') ? '?s=240&d=retro' : '?size=240';
         return `${imageUrl}${param}`.replace('http:', 'https:');
     }
 
