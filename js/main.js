@@ -243,7 +243,11 @@ const loadJSONP = (function(){
     _ajax('https://api.trondheimdc.no/events/tdc2017/sessions', function(data) {
         const speakers = JSON.parse(data.responseText)
             .concat(fakeSpeakers)
-            .reduce((acc, curr) => acc.concat(curr.foredragsholdere), []);
+            .reduce((acc, curr) => {
+                const names = acc.map(f => f.navn);
+                return acc.concat(curr.foredragsholdere
+                                      .filter(f => !names.includes(f.navn) ));
+            }, []);
         loadSpeakers(speakers);
     });
 
