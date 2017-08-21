@@ -237,14 +237,6 @@ const loadJSONP = (function(){
                     "bildeUri": "https://static.trondheimdc.no/2017/Erik_Engheim.jpg"
                 }
             ]
-        }, {
-            "tittel": "",
-            "foredragsholdere": [
-                {
-                    "navn": "Robert Virding",
-                    "bildeUri": "https://static.trondheimdc.no/2017/Robert_Virding.jpg"
-                }
-            ]
         }
     ];
 
