@@ -241,14 +241,19 @@ const loadJSONP = (function(){
     ];
 
     _ajax('https://api.trondheimdc.no/events/tdc2017/sessions', function(data) {
-        const speakers = JSON.parse(data.responseText)
-            .concat(fakeSpeakers)
-            .reduce((acc, curr) => {
-                const names = acc.map(f => f.navn);
-                return acc.concat(curr.foredragsholdere
-                                      .filter(f => !names.includes(f.navn) ));
-            }, []);
-        loadSpeakers(speakers);
+        const sessions = JSON.parse(data.responseText);
+        if(window.location.href.indexOf('workshops') === -1){
+            const speakers = sessions
+                .concat(fakeSpeakers)
+                .reduce((acc, curr) => {
+                    const names = acc.map(f => f.navn);
+                    return acc.concat(curr.foredragsholdere
+                                          .filter(f => !names.includes(f.navn) ));
+                }, []);
+            loadSpeakers(speakers);
+        } else {
+            loadWorkshops(sessions);
+        }
     });
 
     function addSizeParam(imageUrl) {
@@ -270,6 +275,27 @@ const loadJSONP = (function(){
                         </div>
 					</li>`;
         }, '');
+    }
+
+    function loadWorkshops(sessions){
+        _ajax('https://api.trondheimdc.no/events/tdc2017/sessions', function(data) {
+            const workshops = sessions.filter(p => p.format === 'workshop');
+            _si('#workshopsdetails').outerHTML = workshops
+            .reduce((acc, workshop) => {
+               const speaker = workshop.foredragsholdere[0];
+               const img = speaker.bildeUri || fallbackImg;
+               const name = speaker.navn;
+               const green = acc.length === 0 ? '' : 'green';
+
+               return `${acc}
+                       <section class="block block--workshopsinfo ${green}" data-workshopid="${workshop.id}">
+                       <div class="text-content">
+                        <h4>${workshop.tittel}</h4>
+
+                        </div>
+                       </section>`;
+           }, '');
+        });
     }
 
     loadJSONP('https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=00622ccfe6e4d518ca49b0b5105abb54&per_page=20&user_id=trondheimdc&tags=Approved&page=2&extras=o_dims&format=json');
