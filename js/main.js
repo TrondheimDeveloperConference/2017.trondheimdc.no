@@ -225,14 +225,6 @@ const loadJSONP = (function(){
             "tittel": "",
             "foredragsholdere": [
                 {
-                    "navn": "Jonas Follesø",
-                    "bildeUri": "https://static.trondheimdc.no/2017/Jonas_Folleso.jpg"
-                }
-            ]
-        }, {
-            "tittel": "",
-            "foredragsholdere": [
-                {
                     "navn": "Erik Engheim",
                     "bildeUri": "https://static.trondheimdc.no/2017/Erik_Engheim.jpg"
                 }
@@ -248,7 +240,7 @@ const loadJSONP = (function(){
                 .reduce((acc, curr) => {
                     const names = acc.map(f => f.navn);
                     return acc.concat(curr.foredragsholdere
-                                          .filter(f => !names.includes(f.navn) ));
+                        .filter(f => !names.includes(f.navn) ));
                 }, []);
             loadSpeakers(speakers);
         } else {
@@ -277,28 +269,46 @@ const loadJSONP = (function(){
         }, '');
     }
 
-    function loadWorkshops(sessions){
-        _ajax('https://api.trondheimdc.no/events/tdc2017/sessions', function(data) {
-            const workshops = sessions.filter(p => p.format === 'workshop');
-            _si('#workshopsdetails').outerHTML = workshops
-            .reduce((acc, workshop) => {
-               const speaker = workshop.foredragsholdere[0];
-               const img = speaker.bildeUri || fallbackImg;
-               const name = speaker.navn;
-               const green = acc.length === 0 ? '' : 'green';
-
-               return `${acc}
-                       <section class="block block--workshopsinfo ${green}" data-workshopid="${workshop.id}">
-                       <div class="text-content">
-                        <h4>${workshop.tittel}</h4>
-
-                        </div>
-                       </section>`;
-           }, '');
-        });
+    function cleanTitle(title) {
+        return title.replace('#', '')
+            .replace(' ', '')
+            .substr(0, 10)
     }
 
-    loadJSONP('https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=00622ccfe6e4d518ca49b0b5105abb54&per_page=20&user_id=trondheimdc&tags=Approved&page=2&extras=o_dims&format=json');
+    function loadWorkshops(sessions){
+        const workshops = sessions.filter(p => p.format === 'workshop');
+        _si('#workshopsdetails').outerHTML = workshops
+            .reduce((acc, workshop) => {
+                const green = acc.length === 0 ? '' : 'green';
+
+                return `${acc}
+                   <section class="block block--workshopsinfo ${green}" data-workshopid="${workshop.tittel}">
+                   <div class="text-content">
+                    <h4>${workshop.tittel}</h4>
+                    <div id="${cleanTitle(workshop.tittel)}beskrivelse"></div>   
+                   </div>
+                  </section>`;
+            }, '');
+
+        workshops.forEach(workshop => {
+            const detaljer = workshop.links.find(l => l.rel === 'detaljer').href;
+            _ajax(detaljer, function(data) {
+                const workshopDetaljer = JSON.parse(data.responseText);
+                const {tittel, beskrivelse} = workshopDetaljer;
+                const foredragholder = workshopDetaljer.foredragsholdere[0];
+                _si(`#${cleanTitle(tittel)}beskrivelse`).innerHTML = `<p>${beskrivelse.replace('\n', '<br/>')}</p>
+                <div class="foredragsholder">
+                    <h4>${foredragholder.navn}</h4>
+                    <p>${foredragholder.bio}</p>
+                </div> `;
+            });
+        });
+
+    }
+
+    if(window.isMainPage) {
+        loadJSONP('https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=00622ccfe6e4d518ca49b0b5105abb54&per_page=20&user_id=trondheimdc&tags=Approved&page=2&extras=o_dims&format=json');
+    }
 
     function Mouse(element, callback) {
         this.callback = callback;
