@@ -282,6 +282,7 @@ const loadJSONP = (function(){
                 const green = acc.length === 0 ? '' : 'green';
 
                 return `${acc}
+                   <a name="${cleanTitle(workshop.tittel)}"/>
                    <section class="block block--workshopsinfo ${green}" data-workshopid="${workshop.tittel}">
                    <div class="text-content">
                     <h4>${workshop.tittel}</h4>
@@ -296,7 +297,7 @@ const loadJSONP = (function(){
                 const workshopDetaljer = JSON.parse(data.responseText);
                 const {tittel, beskrivelse} = workshopDetaljer;
                 const foredragholder = workshopDetaljer.foredragsholdere[0];
-                _si(`#${cleanTitle(tittel)}beskrivelse`).innerHTML = `<p>${beskrivelse.replace('\n', '<br/>')}</p>
+                _si(`#${cleanTitle(tittel)}beskrivelse`).innerHTML = `<p>${beskrivelse.replace(/\n+/g, '<br/>')}</p>
                 <div class="foredragsholder">
                     <h4>${foredragholder.navn}</h4>
                     <p>${foredragholder.bio}</p>
