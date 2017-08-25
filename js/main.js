@@ -213,22 +213,6 @@ const loadJSONP = (function(){
                     "bildeUri": "https://static.trondheimdc.no/2017/brian-christian.jpg"
                 }
             ]
-        }, {
-            "tittel": "",
-            "foredragsholdere": [
-                {
-                    "navn": "Preethi Kasireddy",
-                    "bildeUri": "https://static.trondheimdc.no/2017/Preethi_Kasireddy.jpg"
-                }
-            ]
-        }, {
-            "tittel": "",
-            "foredragsholdere": [
-                {
-                    "navn": "Erik Engheim",
-                    "bildeUri": "https://static.trondheimdc.no/2017/Erik_Engheim.jpg"
-                }
-            ]
         }
     ];
 
