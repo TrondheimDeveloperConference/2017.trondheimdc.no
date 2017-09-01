@@ -225,14 +225,6 @@ const cookieClicker = {
 			"tittel": "",
 			"foredragsholdere": [
 				{
-					"navn": "Martha Eike",
-					"bildeUri": "https://static.trondheimdc.no/2017/Martha_Eike-Portrett.jpg"
-				}
-			]
-		}, {
-			"tittel": "",
-			"foredragsholdere": [
-				{
 					"navn": "Tarjei Vassbotn Sigve Tjora",
 					"bildeUri": "https://static.trondheimdc.no/2017/tarjei-vassbotn.jpg"
 				}
