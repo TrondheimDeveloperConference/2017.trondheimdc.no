@@ -1367,6 +1367,7 @@ canvas {
 .speakerCard .fav-toggle {
 	border: 1px solid #9EC41B;
 	padding: 1px 4px 3px;
+	cursor: pointer;
 }
 
 .speakerCard .fav-toggle .yes {

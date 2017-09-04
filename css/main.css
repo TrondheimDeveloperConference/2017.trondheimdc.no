@@ -1061,6 +1061,7 @@ canvas {
 	& .fav-toggle {
 		border: 1px solid var(--green);
 		padding: 1px 4px 3px;
+		cursor: pointer;
 
 		& .yes { color: var(--green); }
 	}
