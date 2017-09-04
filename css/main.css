@@ -1089,7 +1089,10 @@ canvas {
 		transition: opacity 4s 3s var(--ease);
 	}
 
-	& figcaption strong { display: block; }
+	& figcaption strong {
+		display: block;
+		margin-bottom: .3em;
+	}
 
 	& figcaption span::after {
 		content: '';
@@ -1107,6 +1110,41 @@ canvas {
 		width: 240px;
 		height: 240px;
 		margin-bottom: 15px;
+	}
+
+	& .speakers-2 {
+		& figure {
+			width: 100%;
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+
+			&:nth-child(3) {
+				& .deepdream {
+					left: auto;
+				}
+
+				& figcaption { order: -1; }
+			}
+		}
+
+		& img {
+			width: 130px;
+			height: 130px;
+		}
+
+		& .deepdream {
+			width: 130px;
+			height: 130px;
+		}
+
+		& figcaption {
+			width: 130px;
+
+			& .name {
+				margin-bottom: 2em;
+			}
+		}
 	}
 
 	& header, & section {

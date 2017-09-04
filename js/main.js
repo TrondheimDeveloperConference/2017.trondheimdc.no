@@ -140,8 +140,8 @@ const cookieClicker = {
 	let oldScrollTop = 0,
 		scrollTop = window.pageYOffset,
 		lowFpsCount = 0,
-		stupidWordContainer,
-		currentStupidWord;
+		stupidWordContainers = [],
+		currentStupidWords = [];
 	const html = _si('html'),
 		sections = _s('[data-link-url]'),
 		sectionTops = [],
@@ -423,27 +423,29 @@ const cookieClicker = {
 
 	}
 
-	function writeStupidWord(pos) {
-		if (!stupidWordContainer) { return; }
+	function writeStupidWord(pos, which) {
+		if (stupidWordContainers.length === 0) { return; }
 
 		if (pos === 0) {
 			let newWord = '';
 			do {
 				newWord = stupidWords[Math.floor(Math.random() * stupidWords.length)];
-			} while (newWord === currentStupidWord)
-			currentStupidWord = newWord;
+			} while (newWord === currentStupidWords[which]);
+			currentStupidWords[which] = newWord;
 		}
 
-		if (pos > currentStupidWord.length) {
-			stupidWordContainer.innerHTML = currentStupidWord + '?';
+		if (pos > currentStupidWords[which].length) {
+			stupidWordContainers[which].innerHTML = currentStupidWords[which] + '?';
 			pos = -1;
 		} else {
-			stupidWordContainer.innerHTML = currentStupidWord.substr(0, pos);
+			stupidWordContainers[which].innerHTML = currentStupidWords[which].substr(0, pos);
 		}
 
+		const howLong = pos < currentStupidWords[which].length ? Math.random() * 200 + 200 : 3000
+
 		setTimeout(function() {
-			writeStupidWord(pos + 1);
-		}, pos < currentStupidWord.length ? Math.random() * 200 + 200 : 3000);
+			writeStupidWord(pos + 1, which);
+		}, howLong);
 	}
 
 	function loadProgram(sessions) {
@@ -553,7 +555,9 @@ const cookieClicker = {
 				const isFav = that.parentNode.classList.contains('is-fav');
 				_ajax(url, data => {
 					const sesh = JSON.parse(data.responseText);
-					const speaker = sesh.foredragsholdere[0];
+					const names = sesh.foredragsholdere.reduce((acc, person) => {
+						return acc + (acc ? ' & ' : '') + `<span>${person.navn}</span>`;
+					}, '');
 					const rom = sesh.rom.replace('Sal ', 'Sal <span>') + '</span>';
 					const realTime = new Date(sesh.starter);
 					const date = sesh.starter.substr(0, sesh.starter.indexOf('T') + 1);
@@ -561,11 +565,25 @@ const cookieClicker = {
 					tid = tid.substr(tid.indexOf('T') + 3, 6);
 					tid = (realTime.getHours() < 10 ? '0' : '') + realTime.getHours() + tid;
 					tid = date + `<span>${tid}</span>`;
-					const hover = speaker.navn.allReplace({'æ': 'a', 'å': 'a', 'ø': 'o', ' ': '-', '[\.]': ''}).toLowerCase();
+
+					let speakerContent = '';
+					let speakerAbout = '';
+					sesh.foredragsholdere.forEach(speaker => {
+						const hover = speaker.navn.allReplace({'æ': 'a', 'å': 'a', 'ø': 'o', ' ': '-', '[\.]': ''}).toLowerCase();
+						const addName = sesh.foredragsholdere.length > 1 ? `<strong class="name">${speaker.navn}</strong>` : '';
+						speakerContent += `<figure>
+							<img src="${addSizeParam(speaker.bildeUri)}">
+							<div class="deepdream"><img src="/img/deep/${hover}.jpg"></div>
+							<figcaption>${addName}<strong>Image description</strong>This looks like a ... <span></span></figcaption>
+						</figure>`;
+
+						speakerAbout += `<strong>About ${speaker.navn}</strong>
+						<p>${speaker.bio}</p>`;
+					});
 
 					let content =
 						`<span class="close">close</span>
-						<article>
+						<article class="speakers-${sesh.foredragsholdere.length}">
 							<div class="fake">
 								${that.innerHTML}
 							</div>
@@ -575,7 +593,7 @@ const cookieClicker = {
 									<hgroup>
 										<dl>
 											<dt>Name:</dt>
-											<dd class="name">${speaker.navn}</dd>
+											<dd class="name">${names}</dd>
 											<dt>Time:</dt>
 											<dd>${tid}</dd>
 											<dt>Room:</dt>
@@ -584,11 +602,7 @@ const cookieClicker = {
 											<dd><a class="fav-toggle"><span class="yes">y</span>/<span class="no">n</span></a></dd>
 										</dl>
 									</hgroup>
-									<figure>
-										<img src="${addSizeParam(speaker.bildeUri)}">
-										<div class="deepdream"><img src="/img/deep/${hover}.jpg"></div>
-										<figcaption><strong>Image description</strong>This looks like ... a <span></span></figcaption>
-									</figure>
+									${speakerContent}
 								</div>
 							</header>
 							<section>
@@ -596,8 +610,7 @@ const cookieClicker = {
 								<p>${sesh.beskrivelse}</p>
 								<strong>Audience</strong>
 								<p>${sesh.tiltenktPublikum}</p>
-								<strong>About</strong>
-								<p>${speaker.bio}</p>
+								${speakerAbout}
 							</section>
 						</article>`;
 
@@ -624,8 +637,12 @@ const cookieClicker = {
 						speakerCard.style.width = width + 'px';
 					}, 50);
 					setTimeout(() => {
-						stupidWordContainer = _si('.speakerCard figcaption span');
-						writeStupidWord(0);
+						stupidWordContainers.push(_si('.speakerCard figcaption span'));
+						writeStupidWord(0, 0);
+						if (sesh.foredragsholdere.length > 1) {
+							stupidWordContainers.push(_si('.speakerCard figure:nth-child(3) figcaption span'));
+							writeStupidWord(0, 1);
+						}
 					}, 6000);
 				});
 			}
@@ -635,7 +652,7 @@ const cookieClicker = {
 			var that = e.target.closest('.speakerCard .close');
 			if (that) {
 				speakerCard.style.opacity = 0;
-				stupidWordContainer = null;
+				stupidWordContainers = [];
 
 				setTimeout(() => {
 					speakerCard.removeAttribute('style');

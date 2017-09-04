@@ -1405,6 +1405,7 @@ canvas {
 
 .speakerCard figcaption strong {
 	display: block;
+	margin-bottom: .3em;
 }
 
 .speakerCard figcaption span::after {
@@ -1424,6 +1425,54 @@ canvas {
 	width: 240px;
 	height: 240px;
 	margin-bottom: 15px;
+}
+
+.speakerCard .speakers-2 {
+}
+
+.speakerCard .speakers-2 figure {
+	width: 100%;
+	display: -ms-flexbox;
+	display: -webkit-flex;
+	display: -webkit-box;
+	display: flex;
+	    -webkit-box-pack: justify;
+	-ms-flex-pack: justify;
+	    justify-content: space-between;
+	    -webkit-box-align: center;
+	-ms-flex-align: center;
+	    align-items: center;
+}
+
+.speakerCard .speakers-2 figure:nth-child(3) {
+}
+
+.speakerCard .speakers-2 figure:nth-child(3) .deepdream {
+	left: auto;
+}
+
+.speakerCard .speakers-2 figure:nth-child(3) figcaption {
+	-webkit-box-ordinal-group: 0;
+	    -ms-flex-order: -1;
+	        order: -1;
+}
+
+.speakerCard .speakers-2 img {
+	width: 130px;
+	height: 130px;
+}
+
+.speakerCard .speakers-2 .deepdream {
+	width: 130px;
+	height: 130px;
+}
+
+.speakerCard .speakers-2 figcaption {
+	width: 130px;
+}
+
+.speakerCard .speakers-2 figcaption .name {
+	margin-bottom: 2em;
 }
 
 .speakerCard header, .speakerCard section {
