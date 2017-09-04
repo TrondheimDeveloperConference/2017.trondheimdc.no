@@ -233,14 +233,6 @@ const cookieClicker = {
 			"tittel": "",
 			"foredragsholdere": [
 				{
-					"navn": "Tarjei Vassbotn Sigve Tjora",
-					"bildeUri": "https://static.trondheimdc.no/2017/tarjei-vassbotn.jpg"
-				}
-			]
-		}, {
-			"tittel": "",
-			"foredragsholdere": [
-				{
 					"navn": "Brian Christian",
 					"bildeUri": "https://static.trondheimdc.no/2017/brian-christian.jpg"
 				}
