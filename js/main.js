@@ -230,7 +230,6 @@ const cookieClicker = {
 			"retained object",
 			"passion",
 			"love",
-			"infatuation",
 			"centre of attention",
 			"hallucination",
 			"center",
