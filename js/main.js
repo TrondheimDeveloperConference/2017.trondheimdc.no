@@ -1,6 +1,7 @@
 import SimplexNoise from 'simplex-noise';
 import vec4 from './vendor/vec4';
 import util from './vendor/util';
+
 import lazysizes from 'lazysizes';
 
 const scrollHelper = {
@@ -689,14 +690,27 @@ const cookieClicker = {
 			}
 		});
 
-		_si('.exp-fav').addEventListener('click', e => {
-			e.preventDefault();
+		var clipboard = new Clipboard('.exp-fav', {
+			text: function() {
+				let ids = [];
+				_s('.sesh.is-fav').forEach(elm => {
+					ids.push(elm.getAttribute('data-id'));
+				});
+				return location.href + '#favs=' + ids.join('|');
+			}
+		});
 
+		clipboard.on('success', function(e) {
+			_si('.exp-success').style.display = 'block';
+		});
+
+		clipboard.on('error', function(e) {
+			console.error('clipboard failed', e);
 			let ids = [];
 			_s('.sesh.is-fav').forEach(elm => {
 				ids.push(elm.getAttribute('data-id'));
 			});
-			prompt('Here, copy this url', location.href + '#favs=' + ids.join('|'));
+			prompt('Here, copy this URL', location.href + '#favs=' + ids.join('|'));
 		});
 	}
 

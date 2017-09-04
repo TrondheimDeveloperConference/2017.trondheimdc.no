@@ -607,6 +607,7 @@ canvas {
 		display: inline-block;
 		margin-top: .5em;
 		font-family: 'Roboto Mono';
+		cursor: pointer;
 
 		&::before {
 			@apply --fill-parent;
@@ -933,6 +934,22 @@ canvas {
 
 				& aside { display: none; }
 			}
+		}
+	}
+
+	&--export {
+		& .text-content {
+			text-align: center;
+			max-width: 400px;
+		}
+
+		& .btn {
+			font-size: 20px;
+		}
+
+		& .exp-success {
+			display: none;
+			margin-top: 1em;
 		}
 	}
 }
