@@ -538,7 +538,7 @@ const cookieClicker = {
 					setTimeout(() => {
 						stupidWordContainer = _si('.speakerCard figcaption span');
 						writeStupidWord(0);
-					}, 7000);
+					}, 6000);
 				});
 			}
 		});
@@ -561,13 +561,19 @@ const cookieClicker = {
 			var that = e.target.closest('.fav-toggle');
 			if (that) {
 				let sesh = that.closest('.sesh'),
-					id = '';
+					id = '',
+					inModal = false;
 				if (!sesh) {
 					sesh = that.closest('.speakerCard');
+					inModal = true;
 				}
 				id = sesh.getAttribute('data-id');
 				sesh.classList.toggle('is-fav');
 				cookieClicker.create("fav-" + id, sesh.classList.contains('is-fav'), 100);
+
+				if (inModal) {
+					_si('.sesh[data-id="' + id + '"]').classList.toggle('is-fav');
+				}
 			}
 		});
 	}
