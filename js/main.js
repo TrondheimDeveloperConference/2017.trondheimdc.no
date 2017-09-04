@@ -38,6 +38,14 @@ const scrollHelper = {
 	}
 };
 
+String.prototype.allReplace = function(obj) {
+	var retStr = this;
+	for (var x in obj) {
+		retStr = retStr.replace(new RegExp(x, 'g'), obj[x]);
+	}
+	return retStr;
+};
+
 const _s = function(selector, context) {
 	const d = context || document;
 	return Array.apply(null, d.querySelectorAll(selector));
@@ -428,6 +436,7 @@ const cookieClicker = {
 					const names = sesh.foredragsholdere.reduce((acc, person) => {
 						return acc + (acc ? ' & ' : '') + `<span>${person.navn}</span>`;
 					}, '');
+
 					const id = time + '-' + rom,
 						fav = cookieClicker.read("fav-" + id) === 'true',
 						url = sesh.links.length ? sesh.links[0].href : '';
@@ -472,6 +481,7 @@ const cookieClicker = {
 					tid = tid.substr(tid.indexOf('T') + 3, 6);
 					tid = (realTime.getHours() < 10 ? '0' : '') + realTime.getHours() + tid;
 					tid = date + `<span>${tid}</span>`;
+					const hover = speaker.navn.allReplace({'æ': 'a', 'å': 'a', 'ø': 'o', ' ': '-', '[\.]': ''}).toLowerCase();
 
 					let content =
 						`<span class="close">close</span>
@@ -496,6 +506,7 @@ const cookieClicker = {
 									</hgroup>
 									<figure>
 										<img src="${addSizeParam(speaker.bildeUri)}">
+										<div class="deepdream"><img src="/img/deep/${hover}.jpg"></div>
 										<figcaption><strong>Image description</strong>This looks like ... a <span></span></figcaption>
 									</figure>
 								</div>
@@ -535,7 +546,7 @@ const cookieClicker = {
 					setTimeout(() => {
 						stupidWordContainer = _si('.speakerCard figcaption span');
 						writeStupidWord(0);
-					}, 2000);
+					}, 7000);
 				});
 			}
 		});
@@ -549,6 +560,7 @@ const cookieClicker = {
 				setTimeout(() => {
 					speakerCard.removeAttribute('style');
 					html.classList.remove('show--speakerCard');
+					speakerCard.classList.remove('show');
 				}, 400);
 			}
 		});

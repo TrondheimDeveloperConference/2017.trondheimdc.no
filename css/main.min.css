@@ -1384,6 +1384,17 @@ canvas {
 .speakerCard figure {
 	margin: 0;
 	width: 240px;
+	position: relative;
+}
+
+.speakerCard .deepdream {
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	opacity: 0;
+	-webkit-transition: opacity 4s 3s cubic-bezier(.4, 0, .2, 1);
+	transition: opacity 4s 3s cubic-bezier(.4, 0, .2, 1);
 }
 
 .speakerCard figcaption strong {
@@ -1440,6 +1451,10 @@ canvas {
 }
 
 .speakerCard.show header, .speakerCard.show section {
+	opacity: 1;
+}
+
+.speakerCard.show .deepdream {
 	opacity: 1;
 }
 

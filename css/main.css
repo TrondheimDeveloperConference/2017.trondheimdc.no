@@ -1069,6 +1069,16 @@ canvas {
 	& figure {
 		margin: 0;
 		width: 240px;
+		position: relative;
+	}
+
+	& .deepdream {
+		position: absolute;
+		top: 0;
+		left: 0;
+		right: 0;
+		opacity: 0;
+		transition: opacity 4s 3s var(--ease);
 	}
 
 	& figcaption strong { display: block; }
@@ -1119,6 +1129,10 @@ canvas {
 		}
 
 		& header, & section { opacity: 1; }
+
+		& .deepdream {
+			opacity: 1;
+		}
 	}
 
 	@media (min-width: 640px) {
