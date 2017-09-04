@@ -681,6 +681,8 @@ const cookieClicker = {
 				sesh.classList.toggle('is-fav');
 				cookieClicker.create("fav-" + id, sesh.classList.contains('is-fav'), 100);
 
+				ga('send', 'event', 'fav', _si('h4', sesh).innerText, sesh.classList.contains('is-fav') ? 'on' : 'off');
+
 				if (inModal) {
 					_si('.sesh[data-id="' + id + '"]').classList.toggle('is-fav');
 				}
