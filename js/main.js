@@ -141,7 +141,8 @@ const cookieClicker = {
 		scrollTop = window.pageYOffset,
 		lowFpsCount = 0,
 		stupidWordContainers = [],
-		currentStupidWords = [];
+		currentStupidWords = [],
+		stupidWordTimeouts = [];
 	const html = _si('html'),
 		sections = _s('[data-link-url]'),
 		sectionTops = [],
@@ -443,7 +444,7 @@ const cookieClicker = {
 
 		const howLong = pos < currentStupidWords[which].length ? Math.random() * 200 + 200 : 3000
 
-		setTimeout(function() {
+		stupidWordTimeouts[which] = setTimeout(function() {
 			writeStupidWord(pos + 1, which);
 		}, howLong);
 	}
@@ -636,12 +637,14 @@ const cookieClicker = {
 						speakerCard.style.left = ((window_width - width) / 2) + 'px';
 						speakerCard.style.width = width + 'px';
 					}, 50);
-					setTimeout(() => {
+					stupidWordTimeouts[0] = setTimeout(() => {
 						stupidWordContainers.push(_si('.speakerCard figcaption span'));
 						writeStupidWord(0, 0);
 						if (sesh.foredragsholdere.length > 1) {
-							stupidWordContainers.push(_si('.speakerCard figure:nth-child(3) figcaption span'));
-							writeStupidWord(0, 1);
+							stupidWordTimeouts[1] = setTimeout(() => {
+								stupidWordContainers.push(_si('.speakerCard figure:nth-child(3) figcaption span'));
+								writeStupidWord(0, 1);
+							}, 1);
 						}
 					}, 6000);
 				});
@@ -653,6 +656,8 @@ const cookieClicker = {
 			if (that) {
 				speakerCard.style.opacity = 0;
 				stupidWordContainers = [];
+				clearTimeout(stupidWordTimeouts[0]);
+				clearTimeout(stupidWordTimeouts[1]);
 
 				setTimeout(() => {
 					speakerCard.removeAttribute('style');

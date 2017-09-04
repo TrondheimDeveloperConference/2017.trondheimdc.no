@@ -1225,6 +1225,22 @@ canvas {
 			height: 180px;
 		}
 
+		& .speakers-2 {
+			& img, & .deepdream {
+				width: 180px;
+				height: 180px;
+				margin-bottom: 0;
+			}
+
+			& figure {
+				width: 420px;
+				margin-bottom: 30px;
+				order: 0;
+			}
+
+			& figcaption { width: 220px; }
+		}
+
 		& section { max-width: 560px; }
 	}
 

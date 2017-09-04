@@ -1581,6 +1581,27 @@ canvas {
 		height: 180px;
 	}
 
+	.speakerCard .speakers-2 {
+}
+
+	.speakerCard .speakers-2 img, .speakerCard .speakers-2 .deepdream {
+		width: 180px;
+		height: 180px;
+		margin-bottom: 0;
+	}
+
+	.speakerCard .speakers-2 figure {
+		width: 420px;
+		margin-bottom: 30px;
+		    -webkit-box-ordinal-group: 1;
+		-ms-flex-order: 0;
+		    order: 0;
+	}
+
+	.speakerCard .speakers-2 figcaption {
+		width: 220px;
+	}
+
 	.speakerCard section {
 		max-width: 560px;
 	}
