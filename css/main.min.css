@@ -868,6 +868,7 @@ canvas {
 .block--program {
 	font-family: 'Roboto Mono';
 	-webkit-font-smoothing: antialiased;
+	padding-top: 3vw;
 }
 
 .block--program .roomsColumns {
@@ -883,7 +884,7 @@ canvas {
 	font-size: 12px;
 }
 
-.block--program .break.lunch {
+.block--program .break.lunch,.block--program .break.party {
 	padding: 46px 0;
 }
 

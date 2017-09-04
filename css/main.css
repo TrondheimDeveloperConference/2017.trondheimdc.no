@@ -667,6 +667,7 @@ canvas {
 	&--program {
 		font-family: 'Roboto Mono';
 		-webkit-font-smoothing: antialiased;
+		padding-top: 3vw;
 
 		& .roomsColumns { display: none; }
 
@@ -678,7 +679,7 @@ canvas {
 			padding: 6px 0;
 			font-size: 12px;
 
-			&.lunch { padding: 46px 0; }
+			&.lunch,&.party { padding: 46px 0; }
 
 			& b { color: #fff; }
 		}

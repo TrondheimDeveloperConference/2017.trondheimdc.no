@@ -468,25 +468,22 @@ const cookieClicker = {
 			slots[format].push(sesh);
 		});
 		//breaks
-		//slotTimes.push('10:00');
 		slotTimes.push('10:45');
-		//slotTimes.push('11:30');
 		slotTimes.push('12:15');
-		//slotTimes.push('14:00');
-		//slotTimes.push('14:45');
 		slotTimes.push('15:30');
-		//slotTimes.push('16:15');
-		//slotTimes.push('17:00');
+		slotTimes.push('18:15');
 
 		slotTimes.sort();
 		let content = '<section class="roomsColumns">';
 		for (let i = 1; i < 6; i++) { content += `<div>Sal <span>${i}</span></div>`; }
 		content += '</section>';
 		slotTimes.forEach(time => {
+			console.log(time, slots[time]);
 			if (!slots[time]) {
 				const isLunch = time === '12:15';
-				const type = isLunch ? 'lunch' : 'refreshments';
-				const extra = isLunch ? ' title="<b>BartJS Podcast Live</b>"' : '';
+				const isParty = time === '18:15';
+				const type = isLunch ? 'lunch' : isParty ? 'party' : 'refreshments';
+				const extra = isLunch ? ' title="<b>BartJS Podcast Live</b>"' : isParty ? ' style="content: \'<b>free</b>\';"' : '';
 				content += `<section class="break ${type}">&lt;br class="<b>${type}</b>" data-time="<b>${time}</b>"${extra}&gt;</section>`
 				return;
 			}
@@ -543,9 +540,9 @@ const cookieClicker = {
 				}
 			});
 			content += '</section>';
-
-			_si('.block--program').innerHTML = content;
 		});
+
+		_si('.block--program').innerHTML = content;
 
 		document.addEventListener('click', e => {
 			var that = e.target.closest('.sesh section');
