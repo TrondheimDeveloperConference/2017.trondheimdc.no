@@ -196,6 +196,13 @@ const cookieClicker = {
 		render();
 	}
 
+	if (location.hash.length > 2 && location.hash.indexOf('favs=') !== -1) {
+		let favs = location.hash.substr(location.hash.indexOf('favs=') + 5);
+		favs.split('|').forEach(id => {
+			cookieClicker.create('fav-' + id, true, 100);
+		});
+	}
+
 	_ael(document, 'scroll', function(e) {
 		scrollTop = window.pageYOffset;
 	});
@@ -575,6 +582,16 @@ const cookieClicker = {
 					_si('.sesh[data-id="' + id + '"]').classList.toggle('is-fav');
 				}
 			}
+		});
+
+		_si('.exp-fav').addEventListener('click', e => {
+			e.preventDefault();
+
+			let ids = [];
+			_s('.sesh.is-fav').forEach(elm => {
+				ids.push(elm.getAttribute('data-id'));
+			});
+			prompt('Here, copy this url', location.href + '#favs=' + ids.join('|'));
 		});
 	}
 
