@@ -493,7 +493,7 @@ const cookieClicker = {
 											<dt>Room:</dt>
 											<dd>${rom}</dd>
 											<dt>Favourite</dt>
-											<dd><a class="fav-toggle"><span class="yes">y</span>/<span class="no">n</span></a></dd>
+											<dd><button type="button" class="fav-toggle"><span class="yes">y</span>/<span class="no">n</span></button></dd>
 										</dl>
 									</hgroup>
 									<figure>
