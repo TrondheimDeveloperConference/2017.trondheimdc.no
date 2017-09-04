@@ -401,8 +401,10 @@ const cookieClicker = {
 		content += '</section>';
 		slotTimes.forEach(time => {
 			if (!slots[time]) {
-				var type = time === '12:15' ? 'lunch' : 'refreshments';
-				content += `<section class="break ${type}">&lt;br type="<b>${type}</b>" time="<b>${time}</b>"&gt;</section>`
+				const isLunch = time === '12:15';
+				const type = isLunch ? 'lunch' : 'refreshments';
+				const extra = isLunch ? ' title="<b>BartJS Podcast Live</b>"' : '';
+				content += `<section class="break ${type}">&lt;br class="<b>${type}</b>" data-time="<b>${time}</b>"${extra}&gt;</section>`
 				return;
 			}
 			if (slots[time].length < 5) {
