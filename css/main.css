@@ -1050,11 +1050,7 @@ canvas {
 	& dd {
 		width: calc(100% - 90px);
 
-		&.name {
-			color: var(--gray);
-			font-size: 1.2em;
-		}
-
+		&.name { color: var(--gray); }
 		& span { color: #fff; }
 	}
 
