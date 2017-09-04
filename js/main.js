@@ -569,6 +569,7 @@ const cookieClicker = {
 				speakerCard.style.display = 'none';
 				speakerCard.classList.remove('show');
 				const url = that.getAttribute('data-href');
+				if (!url) { return; }
 				const box = that.getBoundingClientRect();
 				const isFav = that.parentNode.classList.contains('is-fav');
 				_ajax(url, data => {
