@@ -155,7 +155,7 @@ const cookieClicker = {
 		window_width = window.innerWidth,
 		window_height = window.innerHeight,
 		logo = _si('.logo'),
-		logoTop = isMainPage ? logo.getBoundingClientRect().top + scrollTop : 0,
+		logoTop = window.isMainPage ? logo.getBoundingClientRect().top + scrollTop : 0,
 		startup = Date.now(),
 		speakerCard = _si('.speakerCard'),
 		stupidWords = [
@@ -240,7 +240,6 @@ const cookieClicker = {
 			"bugbear"];
 
 	function render() {
-		if (!isMainPage) { return; }
 		if (scrollTop !== oldScrollTop) {
 			if (sectionTops.length === 0) {
 				sections.forEach(function(s) {
@@ -348,6 +347,26 @@ const cookieClicker = {
 		if (window.location.href.indexOf('workshops') !== -1) {
 			loadWorkshops(sessions);
 		} else if (location.href.indexOf('program') !== -1) {
+			sessions.push({
+				"tittel": "TBA",
+				"format": "presentation",
+				"starter": "2017-10-30T16:15:00Z",
+				"stopper": "2017-10-30T17:00:00Z",
+				"foredragsholdere": [{
+					"navn": "Brian Christian",
+					"bildeUri": "https://static.trondheimdc.no/2017/brian-christian.jpg"
+				}],
+				"sprak": "en",
+				"niva": "beginner",
+				"links": [{
+					"rel": "detaljer",
+					"href": ""
+				}],
+				"rom": "Sal 1",
+				"nokkelord": [
+					"Keynote"
+				]
+			})
 			loadProgram(sessions);
 		} else {
 			const speakers = sessions
