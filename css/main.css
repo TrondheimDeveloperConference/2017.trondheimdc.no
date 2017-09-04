@@ -393,13 +393,13 @@ canvas {
 			position: relative;
 			padding: 10px;
 			margin: 10px;
-		}
 
-		& div {
-			display: inline-block;
-			vertical-align: middle;
-			width: calc(100% - 100px);
-			margin-left: 10px;
+			& div {
+				display: inline-block;
+				vertical-align: middle;
+				width: calc(100% - 100px);
+				margin-left: 10px;
+			}
 		}
 
 		& img {
@@ -429,16 +429,18 @@ canvas {
 				justify-content: center;
 			}
 
-			& li { width: 200px; }
+			& li {
+				width: 200px;
+
+				& div {
+					width: 100%;
+					margin: 0;
+				}
+			}
 
 			& img {
 				width: 180px;
 				height: 180px;
-			}
-
-			& div {
-				width: 100%;
-				margin: 0;
 			}
 
 			& h5 { margin-top: 1em; }
@@ -594,8 +596,8 @@ canvas {
 	}
 
 	& .btn {
-		background: #000;
-		color: var(--green);
+		color: #000;
+		background: var(--green);
 		text-transform: uppercase;
 		font-size: 20px;
 		font-weight: bold;
@@ -654,6 +656,11 @@ canvas {
 
 			&::after { padding: 22px 0; }
 		}
+	}
+
+	&.green .btn {
+		background: #000;
+		color: var(--green);
 	}
 
 	&--program {

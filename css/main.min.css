@@ -449,7 +449,7 @@ canvas {
 	margin: 10px;
 }
 
-.block--speakers div {
+.block--speakers li div {
 	display: inline-block;
 	vertical-align: middle;
 	width: calc(100% - 100px);
@@ -502,14 +502,14 @@ canvas {
 		width: 200px;
 	}
 
+	.block--speakers li div {
+		width: 100%;
+		margin: 0;
+	}
+
 	.block--speakers img {
 		width: 180px;
 		height: 180px;
-	}
-
-	.block--speakers div {
-		width: 100%;
-		margin: 0;
 	}
 
 	.block--speakers h5 {
@@ -763,8 +763,8 @@ canvas {
 }
 
 .block .btn {
-	background: #000;
-	color: #9EC41B;
+	color: #000;
+	background: #9EC41B;
 	text-transform: uppercase;
 	font-size: 20px;
 	font-weight: bold;
@@ -857,6 +857,11 @@ canvas {
 	.block .btn::after {
 		padding: 22px 0;
 	}
+}
+
+.block.green .btn {
+	background: #000;
+	color: #9EC41B;
 }
 
 .block--program {
