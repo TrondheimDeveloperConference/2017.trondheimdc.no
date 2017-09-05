@@ -868,7 +868,7 @@ canvas {
 .block--program {
 	font-family: 'Roboto Mono';
 	-webkit-font-smoothing: antialiased;
-	padding-top: 3vw;
+	padding: 3vw 0;
 }
 
 .block--program .roomsColumns {
@@ -1228,6 +1228,7 @@ canvas {
 }
 
 .block--export {
+	padding-top: 0;
 }
 
 .block--export .text-content {

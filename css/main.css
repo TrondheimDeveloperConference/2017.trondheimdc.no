@@ -667,7 +667,7 @@ canvas {
 	&--program {
 		font-family: 'Roboto Mono';
 		-webkit-font-smoothing: antialiased;
-		padding-top: 3vw;
+		padding: 3vw 0;
 
 		& .roomsColumns { display: none; }
 
@@ -939,6 +939,8 @@ canvas {
 	}
 
 	&--export {
+		padding-top: 0;
+
 		& .text-content {
 			text-align: center;
 			max-width: 400px;
