@@ -240,6 +240,7 @@ const cookieClicker = {
 			"bugbear"];
 
 	function render() {
+		if (!window.isMainPage) { return; }
 		if (scrollTop !== oldScrollTop) {
 			if (sectionTops.length === 0) {
 				sections.forEach(function(s) {
