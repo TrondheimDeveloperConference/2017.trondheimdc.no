@@ -498,7 +498,6 @@ const cookieClicker = {
 		for (let i = 1; i < 6; i++) { content += `<div>Sal <span>${i}</span></div>`; }
 		content += '</section>';
 		slotTimes.forEach(time => {
-			console.log(time, slots[time]);
 			if (!slots[time]) {
 				const isLunch = time === '12:15';
 				const isParty = time === '18:15';
@@ -573,6 +572,7 @@ const cookieClicker = {
 				if (!url) { return; }
 				const box = that.getBoundingClientRect();
 				const isFav = that.parentNode.classList.contains('is-fav');
+				const id = that.parentNode.getAttribute('data-id');
 				_ajax(url, data => {
 					const sesh = JSON.parse(data.responseText);
 					const names = sesh.foredragsholdere.reduce((acc, person) => {
@@ -648,6 +648,7 @@ const cookieClicker = {
 					speakerCard.style.display = 'block';
 					speakerCard.setAttribute('data-id', that.parentNode.getAttribute('data-id'));
 					html.classList.add('show--speakerCard');
+					location.hash = id;
 					setTimeout(() => {
 						speakerCard.classList.add('show');
 						const width = Math.min(window_width * 0.8, 700);
@@ -670,6 +671,14 @@ const cookieClicker = {
 			}
 		});
 
+		if (location.hash.length > 2) {
+			const id = location.hash.replace('#', '');
+			const sesh = _si('.sesh[data-id="' + id + '"] section', document, true);
+			if (sesh) {
+				sesh.click();
+			}
+		}
+
 		document.addEventListener('click', e => {
 			var that = e.target.closest('.speakerCard .close');
 			if (that) {
@@ -682,6 +691,7 @@ const cookieClicker = {
 					speakerCard.removeAttribute('style');
 					html.classList.remove('show--speakerCard');
 					speakerCard.classList.remove('show');
+					location.hash = "#!";
 				}, 400);
 			}
 		});
@@ -714,7 +724,7 @@ const cookieClicker = {
 				_s('.sesh.is-fav').forEach(elm => {
 					ids.push(elm.getAttribute('data-id'));
 				});
-				return location.href + '#favs=' + ids.join('|');
+				return location.origin + location.pathname + '#favs=' + ids.join('|');
 			}
 		});
 
