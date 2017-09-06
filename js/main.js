@@ -696,7 +696,7 @@ const loadJSONP = (function(){
 			_s('.sesh.is-fav').forEach(elm => {
 				ids.push(elm.getAttribute('data-id'));
 			});
-			prompt('Here, copy this URL', location.href + '#favs=' + ids.join('|'));
+			prompt('Here, copy this URL', location.href + '#favs=' + ids.join('+'));
 		});
 	}
 
