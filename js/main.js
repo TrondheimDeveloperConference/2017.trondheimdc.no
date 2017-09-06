@@ -254,7 +254,7 @@ const loadJSONP = (function(){
 
 	if (location.hash.length > 2 && location.hash.indexOf('favs=') !== -1) {
 		let favs = location.hash.substr(location.hash.indexOf('favs=') + 5);
-		favs.split('|').forEach(id => {
+		favs.split('+').forEach(id => {
 			localStorage.setItem('fav-' + id, true);
 		});
 	}
@@ -682,7 +682,7 @@ const loadJSONP = (function(){
 				_s('.sesh.is-fav').forEach(elm => {
 					ids.push(elm.getAttribute('data-id'));
 				});
-				return location.origin + location.pathname + '#favs=' + ids.join('|');
+				return location.origin + location.pathname + '#favs=' + ids.join('+');
 			}
 		});
 
