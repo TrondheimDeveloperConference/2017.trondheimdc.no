@@ -356,12 +356,18 @@ nav svg {
 	fill: #9EC41B;
 	width: 120px;
 	right: 52%;
-	top: calc(10vw + 1.2em)
+	top: calc(10vw + 1.2em);
+	-webkit-transition: opacity .3s cubic-bezier(.4, 0, .2, 1);
+	transition: opacity .3s cubic-bezier(.4, 0, .2, 1)
 }
 
 .logo svg {
 	width: 100%;
 	height: 60px
+}
+
+.programPage .logo {
+	opacity: 0
 }
 
 @media (min-width: 635px) {
@@ -379,6 +385,10 @@ nav svg {
 	.logo svg {
 		height: 10vw
 	}
+
+	.programPage .logo {
+		opacity: 1
+	}
 	}
 
 .toggle--logo-in-menu .logo {
@@ -395,6 +405,10 @@ nav svg {
 .toggle--logo-in-menu .logo svg {
 	fill: #000;
 	height: 70px
+}
+
+.programPage.show--menu .logo {
+	opacity: 1
 }
 
 canvas {
