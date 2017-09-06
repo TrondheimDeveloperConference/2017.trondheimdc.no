@@ -696,6 +696,12 @@ const cookieClicker = {
 			}
 		});
 
+		document.addEventListener('keydown', e => {
+			if (e.keyCode === 27 && modalIsOpen) {
+				_si('.close', speakerCard).click();
+			}
+		});
+
 		var clipboard = new Clipboard('.exp-fav', {
 			text: function() {
 				let ids = [];
