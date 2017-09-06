@@ -317,17 +317,6 @@ const cookieClicker = {
 		this.closest('.block').classList.toggle('open');
 	});
 
-	const fakeSpeakers = [
-		{
-			"tittel": "",
-			"foredragsholdere": [
-				{
-					"navn": "Brian Christian",
-					"bildeUri": "https://static.trondheimdc.no/2017/brian-christian.jpg"
-				}
-			]
-		}
-	];
 
 	function getRandom(arr, n) {
 		var result = new Array(n),
@@ -349,30 +338,9 @@ const cookieClicker = {
 		if (window.location.href.indexOf('workshops') !== -1) {
 			loadWorkshops(sessions);
 		} else if (location.href.indexOf('program') !== -1) {
-			sessions.push({
-				"tittel": "TBA",
-				"format": "presentation",
-				"starter": "2017-10-30T16:15:00Z",
-				"stopper": "2017-10-30T17:00:00Z",
-				"foredragsholdere": [{
-					"navn": "Brian Christian",
-					"bildeUri": "https://static.trondheimdc.no/2017/brian-christian.jpg"
-				}],
-				"sprak": "en",
-				"niva": "beginner",
-				"links": [{
-					"rel": "detaljer",
-					"href": ""
-				}],
-				"rom": "Sal 1",
-				"nokkelord": [
-					"Keynote"
-				]
-			})
 			loadProgram(sessions);
 		} else {
 			const speakers = sessions
-				.concat(fakeSpeakers)
 				.reduce((acc, curr) => {
 					const names = acc.map(f => f.navn);
 					let tmp = curr.foredragsholdere.filter(f => names.indexOf(f.navn) === -1);
