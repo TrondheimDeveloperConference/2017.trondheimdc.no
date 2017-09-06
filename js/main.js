@@ -110,32 +110,6 @@ const loadJSONP = (function(){
 	};
 })();
 
-const cookieClicker = {
-	create: function (name, value, days) {
-		var expires = "";
-		if (days) {
-			var date = new Date();
-			date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
-			expires = "; expires=" + date.toGMTString();
-		}
-		document.cookie = name + "=" + value + expires + "; path=/";
-		return value;
-	},
-	read: function (name) {
-		var cName = name + "=";
-		var cookies = document.cookie.split(";");
-		for (var i = 0; i < cookies.length; i++) {
-			var cookie = cookies[i].trim();
-			if (cookie.indexOf(cName) == 0)
-				return cookie.substring(cName.length, cookie.length);
-		}
-		return null;
-	},
-	remove: function (name) {
-		cookie.create(name, "", -1);
-	}
-};
-
 (function() {
 	'use strict';
 	let oldScrollTop = 0,
@@ -281,7 +255,7 @@ const cookieClicker = {
 	if (location.hash.length > 2 && location.hash.indexOf('favs=') !== -1) {
 		let favs = location.hash.substr(location.hash.indexOf('favs=') + 5);
 		favs.split('|').forEach(id => {
-			cookieClicker.create('fav-' + id, true, 100);
+			localStorage.setItem('fav-' + id, true);
 		});
 	}
 
@@ -507,7 +481,7 @@ const cookieClicker = {
 					}, '');
 
 					const id = time + '-' + rom,
-						fav = cookieClicker.read("fav-" + id) === 'true',
+						fav = localStorage.getItem("fav-" + id) === 'true',
 						url = sesh.links.length ? sesh.links[0].href : '';
 					content += `<div class="sesh${fav ? ' is-fav' : ''}" data-id=${id}>
 									<aside>
@@ -686,7 +660,7 @@ const cookieClicker = {
 				}
 				id = sesh.getAttribute('data-id');
 				sesh.classList.toggle('is-fav');
-				cookieClicker.create("fav-" + id, sesh.classList.contains('is-fav'), 100);
+				localStorage.setItem("fav-" + id, sesh.classList.contains('is-fav'));
 
 				ga('send', 'event', 'fav', _si('h4', sesh).innerText, sesh.classList.contains('is-fav') ? 'on' : 'off');
 
