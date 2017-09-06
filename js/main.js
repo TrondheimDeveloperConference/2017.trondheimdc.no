@@ -143,7 +143,8 @@ const cookieClicker = {
 		lowFpsCount = 0,
 		stupidWordContainers = [],
 		currentStupidWords = [],
-		stupidWordTimeouts = [];
+		stupidWordTimeouts = [],
+		modalIsOpen = false;
 	const html = _si('html'),
 		sections = _s('[data-link-url]'),
 		sectionTops = [],
@@ -649,6 +650,7 @@ const cookieClicker = {
 					speakerCard.setAttribute('data-id', that.parentNode.getAttribute('data-id'));
 					html.classList.add('show--speakerCard');
 					location.hash = id;
+					modalIsOpen = true;
 					setTimeout(() => {
 						speakerCard.classList.add('show');
 						const width = Math.min(window_width * 0.8, 700);
@@ -686,6 +688,8 @@ const cookieClicker = {
 				stupidWordContainers = [];
 				clearTimeout(stupidWordTimeouts[0]);
 				clearTimeout(stupidWordTimeouts[1]);
+				modalIsOpen = false;
+				//TODO: Check if this works
 
 				setTimeout(() => {
 					speakerCard.removeAttribute('style');
@@ -693,6 +697,12 @@ const cookieClicker = {
 					speakerCard.classList.remove('show');
 					location.hash = "#!";
 				}, 400);
+			}
+		});
+
+		document.addEventListener('click', e => {
+			if (modalIsOpen && !e.target.closest('.speakerCard')) {
+				_si('.close', speakerCard).click();
 			}
 		});
 
