@@ -588,7 +588,7 @@ canvas {
 		}
 	}
 
-	&--meetups {
+	&--logos {
 		display: flex;
 		justify-content: space-between;
 		flex-wrap: wrap;
@@ -606,11 +606,15 @@ canvas {
 			display: block;
 		}
 
+		& img { width: 100px; }
+
 		@media (min-width: 520px) {
 			& svg {
 				width: 55px;
 				height: 55px;
 			}
+
+			& img { width: 50px; }
 		}
 	}
 
