@@ -99,7 +99,7 @@ const favoritesIsMigrated = (!localStorage.getItem('tdc-has-migrated-favourites'
 	}
 })();
 
-const _postFeedback = function(url, data, callback) {
+const _postFeedback = function(url, data) {
     const xhr = new XMLHttpRequest();
     xhr.open('POST', url, true);
     xhr.setRequestHeader("Content-type", "application/json");
@@ -528,8 +528,9 @@ const loadJSONP = (function(){
 					}, '');
 
 					const id = time + '-' + rom,
-						fav = localStorage.getItem("fav-" + id) === 'true',
+						fav = localStorage.getItem(`fav-${id}`) === 'true',
 						url = sesh.links.length ? sesh.links[0].href : '';
+					localStorage.setItem(`session-${id}`, JSON.stringify(sesh));
 					content += `<div class="sesh${fav ? ' is-fav' : ''}" data-id=${id}>
 									<aside>
 										<time>${time}</time>
@@ -699,7 +700,7 @@ const loadJSONP = (function(){
 		});
 
 		document.addEventListener('click', e => {
-			var that = e.target.closest('.fav-toggle');
+			const that = e.target.closest('.fav-toggle');
 			if (that) {
 				let sesh = that.closest('.sesh'),
 					id = '',
@@ -710,13 +711,18 @@ const loadJSONP = (function(){
 				}
 				id = sesh.getAttribute('data-id');
 				sesh.classList.toggle('is-fav');
-				localStorage.setItem("fav-" + id, sesh.classList.contains('is-fav'));
+                const isFavourited = sesh.classList.contains('is-fav');
+                localStorage.setItem("fav-" + id, isFavourited);
 
-				ga('send', 'event', 'fav', _si('h4', sesh).innerText, sesh.classList.contains('is-fav') ? 'on' : 'off');
+				ga('send', 'event', 'fav', _si('h4', sesh).innerText, isFavourited ? 'on' : 'off');
 
 				if (inModal) {
 					_si('.sesh[data-id="' + id + '"]').classList.toggle('is-fav');
 				}
+
+                if(isFavourited){
+                    sendFavorited(JSON.parse(localStorage.getItem(`session-${id}`)))
+                }
 			}
 		});
 
