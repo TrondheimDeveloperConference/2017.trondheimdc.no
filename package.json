@@ -65,6 +65,7 @@
   "dependencies": {
     "dom4": "1.8.3",
     "lazysizes": "3.0.0",
+    "uuid": "3.1.0",
     "simplex-noise": "2.3.0"
   }
 }

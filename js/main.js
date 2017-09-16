@@ -1,6 +1,7 @@
 import SimplexNoise from 'simplex-noise';
 import vec4 from './vendor/vec4';
 import util from './vendor/util';
+import uuid from 'uuid';
 
 import lazysizes from 'lazysizes';
 
@@ -82,6 +83,52 @@ const _ajax = function(url, callback) {
 	};
 
 	request.send();
+};
+
+const favoritesIsMigrated = (!localStorage.getItem('tdc-has-migrated-favourites'));
+(function(){
+	try {
+        if (localStorage) {
+            const clientuuid = localStorage.getItem('tdc-client-uuid');
+            if (!clientuuid) {
+                localStorage.setItem('tdc-client-uuid', uuid.v4());
+            }
+        }
+    } catch (e) {
+		console.error(e);
+	}
+})();
+
+const _postFeedback = function(url, data, callback) {
+    const xhr = new XMLHttpRequest();
+    xhr.open('POST', url, true);
+    xhr.setRequestHeader("Content-type", "application/json");
+    xhr.setRequestHeader("Voter-ID", localStorage.getItem('tdc-client-uuid'));
+
+    xhr.onreadystatechange = function() {
+        if(xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
+
+        }
+    };
+    xhr.send(JSON.stringify(data));
+};
+const sendFavorited = function (session) {
+    try {
+        const url = session.links[1].href;
+        const eventId = url.substring(url.indexOf('events/') + 'events/'.length, url.indexOf('/sessions'));
+        const sessionId = url.substring(url.indexOf('sessions/') + 'sessions/'.length, url.indexOf('/feedbacks'));
+        const feedback = {
+        	overall: 3,
+			comment: 'Favourited in program'
+		};
+        _postFeedback(url, {
+            sessionId,
+            eventId,
+			feedback
+		});
+    } catch (e) {
+        console.error(e);
+    }
 };
 
 const loadJSONP = (function(){
@@ -499,6 +546,9 @@ const loadJSONP = (function(){
 										</div>
 									</div>
 								</div>`;
+					if(!favoritesIsMigrated && fav){
+						sendFavorited(sesh);
+					}
 				}
 			});
 			content += '</section>';
