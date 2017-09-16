@@ -4,6 +4,7 @@ import util from './vendor/util';
 import uuid from 'uuid';
 
 import lazysizes from 'lazysizes';
+import dom4 from 'dom4';
 
 const scrollHelper = {
 	easeInOut: function(currentTime, start, change, duration) {
@@ -547,9 +548,9 @@ const loadJSONP = (function(){
 										</div>
 									</div>
 								</div>`;
-					if(!favoritesIsMigrated && fav){
-						sendFavorited(sesh);
-					}
+				//	if(!favoritesIsMigrated && fav){
+				//		sendFavorited(sesh);
+				//	}
 				}
 			});
 			content += '</section>';
@@ -720,9 +721,9 @@ const loadJSONP = (function(){
 					_si('.sesh[data-id="' + id + '"]').classList.toggle('is-fav');
 				}
 
-                if(isFavourited){
-                    sendFavorited(JSON.parse(localStorage.getItem(`session-${id}`)))
-                }
+               // if(isFavourited){
+               //     sendFavorited(JSON.parse(localStorage.getItem(`session-${id}`)))
+               // }
 			}
 		});
 
