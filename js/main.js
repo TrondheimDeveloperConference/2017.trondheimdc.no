@@ -91,7 +91,7 @@ const _ajax = function(url, callback) {
 	try {
         let hash = location.hash;
         if (hash.length > 2 && hash.indexOf('clientid=') !== -1) {
-			const clientId = hash.substr(hash.indexOf('clientid=', 'clientid='.length), hash.indexOf('&'));
+			const clientId = hash.substring(hash.indexOf('clientid=') + 'clientid='.length, hash.indexOf('&favs'));
 			console.log(`Got clientid ${clientId} from hash`);
             localStorage.setItem('tdc-client-uuid', clientId);
         }
