@@ -86,15 +86,44 @@ const _ajax = function(url, callback) {
 	request.send();
 };
 
-const favoritesIsMigrated = (!localStorage.getItem('tdc-has-migrated-favourites'));
+//const favoritesIsMigrated = (!localStorage.getItem('tdc-has-migrated-favourites'));
 (function(){
 	try {
-        if (localStorage) {
-            const clientuuid = localStorage.getItem('tdc-client-uuid');
-            if (!clientuuid) {
-                localStorage.setItem('tdc-client-uuid', uuid.v4());
-            }
+        let hash = location.hash;
+        if (hash.length > 2 && hash.indexOf('clientid=') !== -1) {
+			const clientId = hash.substr(hash.indexOf('clientid=', 'clientid='.length), hash.indexOf('&'));
+			console.log(`Got clientid ${clientId} from hash`);
+            localStorage.setItem('tdc-client-uuid', clientId);
         }
+        (function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=
+            function(){(b[l].q=b[l].q||[]).push(arguments)});b[l].l=+new Date;
+            e=o.createElement(i);r=o.getElementsByTagName(i)[0];
+            e.src='//www.google-analytics.com/analytics.js';
+            r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));
+        ga(function(tracker) {
+            const clientId = tracker.get('clientId');
+            console.log(`Got GA id ${clientId}`);
+            localStorage.setItem('tdc-client-uuid', clientId);
+        });
+        ga('set', 'anonymizeIp', true);
+        if (localStorage) {
+            let clientuuid = localStorage.getItem('tdc-client-uuid');
+            if (!clientuuid) {
+                clientuuid = uuid.v4();
+                console.log(`Creating client id ${clientuuid}`);
+                localStorage.setItem('tdc-client-uuid', clientuuid);
+            }
+
+            ga('create','UA-98174789-1', {
+                'storage': 'none',
+                'storeGac': false,
+                'clientId': clientuuid
+			});
+
+        } else {
+            ga('create','UA-98174789-1','auto');
+		}
+        ga('send','pageview');
     } catch (e) {
 		console.error(e);
 	}
@@ -305,6 +334,12 @@ const loadJSONP = (function(){
 		favs.split('+').forEach(id => {
 			localStorage.setItem('fav-' + id, true);
 		});
+        ga('send', {
+            hitType: 'event',
+            eventCategory: 'fav',
+            eventAction: 'Imported favourites',
+            eventLabel: 'true'
+        });
 	}
 
 	_ael(document, 'scroll', function(e) {
@@ -715,7 +750,12 @@ const loadJSONP = (function(){
                 const isFavourited = sesh.classList.contains('is-fav');
                 localStorage.setItem("fav-" + id, isFavourited);
 
-				ga('send', 'event', 'fav', _si('h4', sesh).innerText, isFavourited ? 'on' : 'off');
+				ga('send', {
+                    hitType: 'event',
+                    eventCategory: 'fav',
+                    eventAction: _si('h4', sesh).innerText,
+                    eventLabel: isFavourited ? 'on' : 'off'
+                });
 
 				if (inModal) {
 					_si('.sesh[data-id="' + id + '"]').classList.toggle('is-fav');
@@ -733,13 +773,15 @@ const loadJSONP = (function(){
 			}
 		});
 
-		var clipboard = new Clipboard('.exp-fav', {
+		function getShareFavUrl(){
+            const ids = _s('.sesh.is-fav').map(elm => elm.getAttribute('data-id'));
+            const clientId = localStorage.getItem('tdc-client-uuid');
+            return location.origin + location.pathname + '#clientid=' + clientId + '&favs=' + ids.join('+');
+		}
+
+		const clipboard = new Clipboard('.exp-fav', {
 			text: function() {
-				let ids = [];
-				_s('.sesh.is-fav').forEach(elm => {
-					ids.push(elm.getAttribute('data-id'));
-				});
-				return location.origin + location.pathname + '#favs=' + ids.join('+');
+				return getShareFavUrl();
 			}
 		});
 
@@ -749,11 +791,7 @@ const loadJSONP = (function(){
 
 		clipboard.on('error', function(e) {
 			console.error('clipboard failed', e);
-			let ids = [];
-			_s('.sesh.is-fav').forEach(elm => {
-				ids.push(elm.getAttribute('data-id'));
-			});
-			prompt('Here, copy this URL', location.href + '#favs=' + ids.join('+'));
+			prompt('Here, copy this URL', getShareFavUrl());
 		});
 	}
 
