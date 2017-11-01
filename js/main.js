@@ -631,6 +631,9 @@ const loadJSONP = (function(){
 						<p>${speaker.bio}</p>`;
 					});
 
+					const video = sesh.links.find(l => l.rel === 'video');
+					const videolink = !!video ? `<strong><a href="${video.href}">Se videoen av foredraget på Vimeo</a></strong>` : '';
+
 					let content =
 						`<span class="close">close</span>
 						<article class="speakers-${sesh.foredragsholdere.length}">
@@ -656,6 +659,7 @@ const loadJSONP = (function(){
 								</div>
 							</header>
 							<section>
+								${videolink}
 								<strong>Talk:</strong>
 								<p>${sesh.beskrivelse}</p>
 								<strong>Audience</strong>
