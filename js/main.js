@@ -390,7 +390,7 @@ const loadJSONP = (function(){
 		return result;
 	}
 
-	_ajax('https://api.trondheimdc.no/public/allSessions/tdc2017', function(data) {
+	_ajax('https://2017.trondheimdc.no/tdc2017.json', function(data) {
 
 		const sessions = JSON.parse(data.responseText).sessions;
 		if (window.location.href.indexOf('workshops') !== -1) {
@@ -594,7 +594,7 @@ const loadJSONP = (function(){
 				const box = that.getBoundingClientRect();
 				const isFav = that.parentNode.classList.contains('is-fav');
 				const id = that.parentNode.getAttribute('data-id');
-				_ajax('https://api.trondheimdc.no/public/allSessions/tdc2017', data => {
+				_ajax('https://2017.trondheimdc.no/tdc2017.json', data => {
 					const sesh = JSON.parse(data.responseText).sessions.find(s => s.sessionId === url);
 					const names = sesh.speakers.reduce((acc, person) => {
 						return acc + (acc ? ' & ' : '') + `<span>${person.name}</span>`;
