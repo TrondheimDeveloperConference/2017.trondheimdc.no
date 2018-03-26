@@ -392,7 +392,7 @@ const loadJSONP = (function(){
 
 	_ajax('https://api.trondheimdc.no/public/allSessions/tdc2017', function(data) {
 
-		const sessions = JSON.parse(data.responseText);
+		const sessions = JSON.parse(data.responseText).sessions;
 		if (window.location.href.indexOf('workshops') !== -1) {
 			loadWorkshops(sessions);
 		} else if (location.href.indexOf('program') !== -1) {
@@ -493,7 +493,7 @@ const loadJSONP = (function(){
 			slotTimes = [];
 		sessions.forEach(sesh => {
 			if (sesh.format === 'workshop') { return; }
-			const start = new Date(sesh.starter);
+			const start = new Date(sesh.startTime);
 			let h = start.getHours();
 			h = (h < 10 ? '0' : '') + h;
 			let m = start.getMinutes();
@@ -527,14 +527,14 @@ const loadJSONP = (function(){
 			if (slots[time].length < 5) {
 				let roomCheck = [false, false, false, false, false];
 				slots[time].forEach(sesh => {
-					const rom = sesh.rom.replace('Sal ', '');
+					const rom = sesh.room.replace('Sal ', '');
 					roomCheck[rom-1] = true;
 				});
 
 				for (let i = 0; i < 5; i++) {
 					if (!roomCheck[i]) {
 						slots[time].push({
-							rom: 'Sal ' + (i + 1),
+							room: 'Sal ' + (i + 1),
 							format: 'fake'
 						});
 					}
@@ -542,30 +542,29 @@ const loadJSONP = (function(){
 			}
 
 			slots[time].sort((a, b) => {
-				return a.rom.replace('Sal ', '') - b.rom.replace('Sal ', '');
+				return a.room.replace('Sal ', '') - b.room.replace('Sal ', '');
 			});
 
 			content += `<section class="slot ${time}" data-time="${time}">`;
 			slots[time].forEach(sesh => {
-				const rom = sesh.rom.replace('Sal ', '');
+				const rom = sesh.room.replace('Sal ', '');
 				if (sesh.format === 'fake') {
 					content += `<div class="sesh fake"></div>`
 				} else {
-					const names = sesh.foredragsholdere.reduce((acc, person) => {
-						return acc + (acc ? ' & ' : '') + `<span>${person.navn}</span>`;
+					const names = sesh.speakers.reduce((acc, person) => {
+						return acc + (acc ? ' & ' : '') + `<span>${person.name}</span>`;
 					}, '');
 
 					const id = time + '-' + rom,
-						fav = localStorage.getItem(`fav-${id}`) === 'true',
-						url = sesh.links.length ? sesh.links[0].href : '';
+						fav = localStorage.getItem(`fav-${id}`) === 'true';
 					localStorage.setItem(`session-${id}`, JSON.stringify(sesh));
 					content += `<div class="sesh${fav ? ' is-fav' : ''}" data-id=${id}>
 									<aside>
 										<time>${time}</time>
 										<span class="room"><span>Sal</span> ${rom}</span>
 									</aside>
-									<section data-href="${url}">
-										<h4>${sesh.tittel}</h4>
+									<section data-id="${sesh.sessionId}">
+										<h4>${sesh.title}</h4>
 										<h5>${names}</h5>
 									</section>
 									<div class="fav-toggle">
@@ -590,50 +589,50 @@ const loadJSONP = (function(){
 			if (that) {
 				speakerCard.style.display = 'none';
 				speakerCard.classList.remove('show');
-				const url = that.getAttribute('data-href');
+				const url = that.getAttribute('data-id');
 				if (!url) { return; }
 				const box = that.getBoundingClientRect();
 				const isFav = that.parentNode.classList.contains('is-fav');
 				const id = that.parentNode.getAttribute('data-id');
-				_ajax(url, data => {
-					const sesh = JSON.parse(data.responseText);
-					const names = sesh.foredragsholdere.reduce((acc, person) => {
-						return acc + (acc ? ' & ' : '') + `<span>${person.navn}</span>`;
+				_ajax('https://api.trondheimdc.no/public/allSessions/tdc2017', data => {
+					const sesh = JSON.parse(data.responseText).sessions.find(s => s.sessionId === url);
+					const names = sesh.speakers.reduce((acc, person) => {
+						return acc + (acc ? ' & ' : '') + `<span>${person.name}</span>`;
 					}, '');
-					const rom = sesh.rom.replace('Sal ', 'Sal <span>') + '</span>';
-					const realTime = new Date(sesh.starter);
-					const date = sesh.starter.substr(0, sesh.starter.indexOf('T') + 1);
-					let tid = sesh.starter;
+					const rom = sesh.room.replace('Sal ', 'Sal <span>') + '</span>';
+					const realTime = new Date(sesh.startTime);
+					const date = sesh.startTime.substr(0, sesh.startTime.indexOf('T') + 1);
+					let tid = sesh.startTime;
 					tid = tid.substr(tid.indexOf('T') + 3, 6);
 					tid = (realTime.getHours() < 10 ? '0' : '') + realTime.getHours() + tid;
 					tid = date + `<span>${tid}</span>`;
 
 					let speakerContent = '';
 					let speakerAbout = '';
-					sesh.foredragsholdere.forEach(speaker => {
-						const hover = speaker.navn.allReplace({'æ': 'a', 'å': 'a', 'ø': 'o', ' ': '-', '[\.]': ''}).toLowerCase();
-						const addName = sesh.foredragsholdere.length > 1 ? `<strong class="name">${speaker.navn}</strong>` : '';
+					sesh.speakers.forEach(speaker => {
+						const hover = speaker.name.allReplace({'æ': 'a', 'å': 'a', 'ø': 'o', ' ': '-', '[\.]': ''}).toLowerCase();
+						const addName = sesh.speakers.length > 1 ? `<strong class="name">${speaker.name}</strong>` : '';
 						speakerContent += `<figure>
-							<img src="${addSizeParam(speaker.bildeUri)}">
+							<img src="${addSizeParam(speaker.pictureUrl)}">
 							<div class="deepdream"><img src="/img/deep/${hover}.jpg"></div>
 							<figcaption>${addName}<strong>Image description</strong>This looks like a ... <span></span></figcaption>
 						</figure>`;
 
-						speakerAbout += `<strong>About ${speaker.navn}</strong>
+						speakerAbout += `<strong>About ${speaker.name}</strong>
 						<p>${speaker.bio}</p>`;
 					});
 
-					const video = sesh.links.find(l => l.rel === 'video');
+					const video = sesh.video;
 					const videolink = !!video ? `<strong><a href="${video.href}">Se videoen av foredraget på Vimeo</a></strong>` : '';
 
 					let content =
 						`<span class="close">close</span>
-						<article class="speakers-${sesh.foredragsholdere.length}">
+						<article class="speakers-${sesh.speakers.length}">
 							<div class="fake">
 								${that.innerHTML}
 							</div>
 							<header>
-								<h2>${sesh.tittel}</h2>
+								<h2>${sesh.title}</h2>
 								<div>
 									<hgroup>
 										<dl>
@@ -653,9 +652,9 @@ const loadJSONP = (function(){
 							<section>
 								${videolink}
 								<strong>Talk:</strong>
-								<p>${sesh.beskrivelse}</p>
+								<p>${sesh.abstract}</p>
 								<strong>Audience</strong>
-								<p>${sesh.tiltenktPublikum}</p>
+								<p>${sesh.intendedAudience}</p>
 								${speakerAbout}
 							</section>
 						</article>`;
