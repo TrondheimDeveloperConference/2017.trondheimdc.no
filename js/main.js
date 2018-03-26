@@ -390,7 +390,8 @@ const loadJSONP = (function(){
 		return result;
 	}
 
-	_ajax('https://api.trondheimdc.no/events/tdc2017/sessions', function(data) {
+	_ajax('https://api.trondheimdc.no/public/allSessions/tdc2017', function(data) {
+
 		const sessions = JSON.parse(data.responseText);
 		if (window.location.href.indexOf('workshops') !== -1) {
 			loadWorkshops(sessions);
@@ -399,13 +400,13 @@ const loadJSONP = (function(){
 		} else {
 			const speakers = sessions
 				.reduce((acc, curr) => {
-					const names = acc.map(f => f.navn);
-					let tmp = curr.foredragsholdere.filter(f => names.indexOf(f.navn) === -1);
+					const names = acc.map(f => f.name);
+					let tmp = curr.speakers.filter(f => names.indexOf(f.name) === -1);
 					tmp.forEach((s) => {
-						s.tittel = curr.tittel;
+						s.title = curr.title;
 					});
-					return acc.concat(curr.foredragsholdere
-						.filter(f => names.indexOf(f.navn) === -1));
+					return acc.concat(curr.speakers
+						.filter(f => names.indexOf(f.name) === -1));
 				}, []);
 			loadSpeakers(getRandom(speakers, 10));
 		}
@@ -419,15 +420,14 @@ const loadJSONP = (function(){
 	function loadSpeakers(speakers) {
 		const fallbackImg = '//placehold.it/360x240/117fe8/fff';
 		_si('.block--speakers ul').innerHTML = speakers.reduce((acc, speaker) => {
-			const img = speaker.bildeUri || fallbackImg;
-			const name = speaker.navn;
+			const img = speaker.pictureUrl || fallbackImg;
 
 			return `${acc}
 					<li>
 						<img src="${addSizeParam(img)}">
 						<div>
-							<h5>${speaker.navn}</h5>
-							<h6>${speaker.tittel}</h6>
+							<h5>${speaker.name}</h5>
+							<h6>${speaker.title}</h6>
 						</div>
 					</li>`;
 		}, '');
@@ -444,31 +444,23 @@ const loadJSONP = (function(){
 		_si('#workshopsdetails').outerHTML = workshops
 			.reduce((acc, workshop) => {
 				const green = acc.length === 0 ? '' : 'green';
-
+                const {beskrivelse} = workshop;
+                const foredragholder = workshop.speakers[0];
 				return `${acc}
-					<a name="${cleanTitle(workshop.tittel)}"/>
-					<section class="block block--workshopsinfo ${green}" data-workshopid="${workshop.tittel}">
+					<a name="${cleanTitle(workshop.title)}"/>
+					<section class="block block--workshopsinfo ${green}" data-workshopid="${workshop.title}">
 						<div class="text-content">
-							<h4>${workshop.tittel}</h4>
-							<div id="${cleanTitle(workshop.tittel)}beskrivelse"></div>
+							<h4>${workshop.title}</h4>
+							<div>
+							<p>${beskrivelse.replace(/\\n+/g, '<br/>')}</p>
+							<div class="foredragsholder">
+								<h4>${foredragholder.name}</h4>
+								<p>${foredragholder.bio}</p>
+							</div> 
+							</div>
 						</div>
 					</section>`;
 			}, '');
-
-		workshops.forEach(workshop => {
-			const detaljer = workshop.links.find(l => l.rel === 'detaljer').href;
-			_ajax(detaljer, function(data) {
-				const workshopDetaljer = JSON.parse(data.responseText);
-				const {tittel, beskrivelse} = workshopDetaljer;
-				const foredragholder = workshopDetaljer.foredragsholdere[0];
-				_si(`#${cleanTitle(tittel)}beskrivelse`).innerHTML = `<p>${beskrivelse.replace(/\n+/g, '<br/>')}</p>
-				<div class="foredragsholder">
-					<h4>${foredragholder.navn}</h4>
-					<p>${foredragholder.bio}</p>
-				</div> `;
-			});
-		});
-
 	}
 
 	function writeStupidWord(pos, which) {
